@@ -1,2 +1,2 @@
 # course-catalog
-Demo Project
+This is a Demo Project 
