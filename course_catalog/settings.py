@@ -79,11 +79,11 @@ WSGI_APPLICATION = 'course_catalog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'course_catalog_db',  # Change to your actual DB name
-        'USER': 'postgres',        # Change to your actual DB username
-        'PASSWORD': '1234', # Change to your actual DB password
-        'HOST': 'localhost',  # Or your server IP if running remotely
-        'PORT': '5432',        # Default PostgreSQL port
+        'NAME': 'course_catalog_db',
+        'USER': 'postgres', 
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
