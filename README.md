@@ -8,4 +8,5 @@ The techstack used is:
 - Django-REST-Framework
 - React
 - Vite
+- TailwindCSS
 - PostgreSQL
