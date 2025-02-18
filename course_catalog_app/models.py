@@ -14,7 +14,7 @@ class Course(models.Model):
     course_name = models.CharField(max_length=255)
     scu = models.IntegerField()
     is_core = models.BooleanField()
-    passing_grade = models.CharField(max_length=2, null=True, blank=True)
+    passing_grade = models.CharField(max_length=2, null=True, blank=True, default='NA')
     prerequisites = models.TextField(null=True, blank=True)
 
     def __str__(self):
