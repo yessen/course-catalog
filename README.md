@@ -9,4 +9,4 @@ The techstack used is:
 - React
 - Vite
 - TailwindCSS
-- PostgreSQL 
+- PostgreSQL
