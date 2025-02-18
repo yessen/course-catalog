@@ -26,4 +26,3 @@ class SemesterCourse(models.Model):
 
     class Meta:
         unique_together = ('semester', 'course')
-
