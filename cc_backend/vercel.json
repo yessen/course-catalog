@@ -26,5 +26,5 @@
       "src": "/(.*)",
       "dest": "cc_backend/wsgi.py"
     }
-  ],
+  ]
 }
