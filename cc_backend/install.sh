@@ -1,5 +1,5 @@
 python3 -m venv cc-env
-source sc-env/bin/activate
+source cc-env/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
 
