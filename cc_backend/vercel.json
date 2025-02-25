@@ -26,6 +26,6 @@
   ],
   {
       "installCommand": "bash install"
-  }
+  },
   "outputDirectory": "/public"
 }
