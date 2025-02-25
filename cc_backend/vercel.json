@@ -24,5 +24,8 @@
       "dest": "cc_backend/wsgi.py"
     }
   ],
+  {
+      "installCommand": "bash install"
+  }
   "outputDirectory": "/public"
 }
