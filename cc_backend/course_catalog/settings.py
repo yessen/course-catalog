@@ -89,6 +89,7 @@ WSGI_APPLICATION = 'course_catalog.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 ## TESTING: DON'T DELETE
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -107,7 +108,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-"""
 
 
 
