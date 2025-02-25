@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "sc_backend/wsgi.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "15mb", "runtime": "python3.13" }
+    },
+    {
+      "src": "sc_backend/install.sh",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "/dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "sc_backend/wsgi.py"
+    }
+  ],
+  "outputDirectory": "/public"
+}
