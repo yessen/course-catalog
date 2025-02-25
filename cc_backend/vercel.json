@@ -2,12 +2,12 @@
   "version": 2,
   "builds": [
     {
-      "src": "sc_backend/wsgi.py",
+      "src": "cc_backend/wsgi.py",
       "use": "@vercel/python",
       "config": { "maxLambdaSize": "15mb", "runtime": "python3.13" }
     },
     {
-      "src": "sc_backend/install.sh",
+      "src": "cc_backend/install.sh",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "/dist"
@@ -21,7 +21,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "sc_backend/wsgi.py"
+      "dest": "cc_backend/wsgi.py"
     }
   ],
   "outputDirectory": "/public"
