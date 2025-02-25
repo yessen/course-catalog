@@ -13,7 +13,7 @@
       "src": "install.sh",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "/dist"
+        "distDir": "dist"
       }
     }
   ],
@@ -26,5 +26,6 @@
       "src": "/(.*)",
       "dest": "course-catalog/wsgi.py"
     }
-  ]
+  ],
+  "outputDirectory": "dist"
 }
