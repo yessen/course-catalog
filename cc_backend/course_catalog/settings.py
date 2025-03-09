@@ -101,11 +101,11 @@ PASSWORD = os.getenv("POSTGRES_PASSWORD")
 HOST = os.getenv("POSTGRES_HOST")
 PORT = os.getenv("DB_PORT")
 
-print(DBNAME)
-print(USER)
-print(PASSWORD)
-print(HOST)
-print(PORT)
+#print(DBNAME)
+#print(USER)
+#print(PASSWORD)
+#print(HOST)
+#print(PORT)
 
 # Remote Supabase DB
 DATABASES = {
