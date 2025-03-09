@@ -4,16 +4,13 @@
     {
       "src": "course-catalog/wsgi.py",
       "use": "@vercel/python",
-      "config": { 
-	"maxLambdaSize": "15mb", 
-	"runtime": "python3.13" 
-      }
+      "config": { "maxLambdaSize": "15mb", "runtime": "python3.13" }
     },
     {
-      "src": "install.sh",
+      "src": "course-catalog/install.sh",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist"
+        "distDir": "/dist"
       }
     }
   ],
@@ -27,5 +24,8 @@
       "dest": "course-catalog/wsgi.py"
     }
   ],
-  "outputDirectory": "dist"
+  "outputDirectory": "/public",
+  "git": {
+    "deploymentEnabled": false
+  }
 }
