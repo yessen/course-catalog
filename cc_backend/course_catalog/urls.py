@@ -25,7 +25,11 @@ schema_view = get_schema_view(
     openapi.Info(
         title="Course Catalog API",
         default_version="v1",
-        description="API documentation for managing courses, semesters, and curriculum data.",
+        description=(
+            "This API provides access to the course catalog, allowing users to manage "
+            "courses, semesters, and curriculum data. Endpoints include retrieving "
+            "course lists, semester details, and more."
+        ),
         terms_of_service="https://www.example.com/terms/",
         contact=openapi.Contact(email="support@example.com"),
         license=openapi.License(name="MIT License"),

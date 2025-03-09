@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "course-catalog/wsgi.py",
+      "use": "@vercel/python",
+      "config": { 
+	"maxLambdaSize": "15mb", 
+	"runtime": "python3.13" 
+      }
+    },
+    {
+      "src": "install.sh",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "course-catalog/wsgi.py"
+    }
+  ],
+  "outputDirectory": "dist"
+}
