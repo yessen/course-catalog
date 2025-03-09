@@ -27,5 +27,5 @@
   "outputDirectory": "/public",
   "git": {
     "deploymentEnabled": true
-  },
+ },
 }
