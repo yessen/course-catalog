@@ -10,14 +10,14 @@ from drf_yasg import openapi
 class SemesterViewSet(viewsets.ModelViewSet):
     queryset = Semester.objects.all()
     serializer_class = SemesterSerializer
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 class SemesterCourseViewSet(viewsets.ModelViewSet):
     queryset = SemesterCourse.objects.all()
     serializer_class = SemesterCourseSerializer
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
