@@ -101,12 +101,6 @@ HOST = os.getenv("DB_HOST")
 PORT = os.getenv("DB_PORT")
 DBNAME = os.getenv("DB_NAME")
 
-print(USER)
-print(PASSWORD)
-print(HOST)
-print(PORT)
-print(DBNAME)
-
 # Remote Supabase DB
 DATABASES = {
     'default': {
@@ -122,46 +116,6 @@ DATABASES = {
         },
     }
 }
-
-## TESTING: DON'T DELETE
-"""
-# Local Sqlite db
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres.fdxewxdpalqnzrkfblld',
-        'PASSWORD': 'z7GNq_f4#_kvbv9',
-        'HOST': 'aws-0-ap-southeast-1.pooler.supabase.com',
-        'PORT': '6543',
-        'OPTIONS': {
-            'sslmode': 'require',
-        },
-    }
-}
-"""
-
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-"""
-"""
-# Local PostgreSQL db
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'course_catalog_db',
-        'USER': 'postgres', 
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-"""
 
 
 # Password validation
