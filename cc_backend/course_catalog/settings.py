@@ -95,10 +95,10 @@ WSGI_APPLICATION = 'course_catalog.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # Fetch variables
-DBNAME = os.getenv("DB_POSTGRES_DATABASE")
-USER = os.getenv("DB_POSTGRES_USER")
-PASSWORD = os.getenv("DB_POSTGRES_PASSWORD")
-HOST = os.getenv("DB_POSTGRES_HOST")
+DBNAME = os.getenv("POSTGRES_DATABASE")
+USER = os.getenv("POSTGRES_USER")
+PASSWORD = os.getenv("POSTGRES_PASSWORD")
+HOST = os.getenv("POSTGRES_HOST")
 PORT = os.getenv("DB_PORT")
 
 print(DBNAME)
