@@ -95,11 +95,17 @@ WSGI_APPLICATION = 'course_catalog.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # Fetch variables
-USER = os.getenv("DB_USER")
-PASSWORD = os.getenv("DB_PASSWORD")
-HOST = os.getenv("DB_HOST")
+DBNAME = os.getenv("DB_POSTGRES_DATABASE")
+USER = os.getenv("DB_POSTGRES_USER")
+PASSWORD = os.getenv("DB_POSTGRES_PASSWORD")
+HOST = os.getenv("DB_POSTGRES_HOST")
 PORT = os.getenv("DB_PORT")
-DBNAME = os.getenv("DB_NAME")
+
+print(DBNAME)
+print(USER)
+print(PASSWORD)
+print(HOST)
+print(PORT)
 
 # Remote Supabase DB
 DATABASES = {
@@ -112,7 +118,7 @@ DATABASES = {
         'PORT': PORT,
         'OPTIONS': {
            'gssencmode': 'disable',
-           'sslmode': 'require',
+           #'sslmode': 'require',
         },
     }
 }

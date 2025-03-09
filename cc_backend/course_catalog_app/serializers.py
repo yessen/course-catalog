@@ -8,7 +8,7 @@ class SemesterSerializer(serializers.ModelSerializer):
     """
 
     id = serializers.IntegerField(help_text="Unique identifier for the semester.")
-    name = serializers.CharField(max_length=100, help_text="Semester name (e.g., Semester 1, Semester 2).")
+    #name = serializers.CharField(max_length=100, help_text="Semester name (e.g., Semester 1, Semester 2).")
 
     class Meta:
         model = Semester
