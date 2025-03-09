@@ -101,12 +101,6 @@ HOST = os.getenv("DB_HOST")
 PORT = os.getenv("DB_PORT")
 DBNAME = os.getenv("DB_NAME")
 
-print(USER)
-print(PASSWORD)
-print(HOST)
-print(PORT)
-print(DBNAME)
-
 # Remote Supabase DB
 DATABASES = {
     'default': {
