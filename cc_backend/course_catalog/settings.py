@@ -10,7 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +46,8 @@ INSTALLED_APPS = [
     'course_catalog_app',
     'rest_framework',
     'rest_framework.authtoken',
-    'drf_yasg'
+    'drf_yasg',
+    'dotenv'
 ]
 
 REST_FRAMEWORK = {
@@ -88,8 +94,29 @@ WSGI_APPLICATION = 'course_catalog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-## TESTING: DON'T DELETE
+# Fetch variables
+USER = os.getenv("SC_POSTGRES_USER")
+PASSWORD = os.getenv("SC_POSTGRES_PASSWORD")
+HOST = os.getenv("SC_POSTGRES_HOST")
+PORT = os.getenv("SC_PORT")
+DBNAME = os.getenv("SC_POSTGRES_DATABASE")
+PGGSSENCMODE = os.getenv('PGGSSENCMODE')
 
+# Remote Supabase DB
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': DBNAME,
+        'USER': USER,
+        'PASSWORD': PASSWORD,
+        'HOST': HOST,
+        'PORT': PORT,
+        'OPTIONS': {'gssencmode': 'disable'},
+    }
+}
+## TESTING: DON'T DELETE
+"""
+# Local Sqlite db
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -97,7 +124,8 @@ DATABASES = {
     }
 }
 """
-
+"""
+# Local PostgreSQL db
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -146,7 +174,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / "staticfiles" / "static"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
