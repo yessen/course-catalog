@@ -95,12 +95,17 @@ WSGI_APPLICATION = 'course_catalog.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # Fetch variables
-USER = os.getenv("SC_POSTGRES_USER")
-PASSWORD = os.getenv("SC_POSTGRES_PASSWORD")
-HOST = os.getenv("SC_POSTGRES_HOST")
-PORT = os.getenv("SC_PORT")
-DBNAME = os.getenv("SC_POSTGRES_DATABASE")
-PGGSSENCMODE = os.getenv('PGGSSENCMODE')
+USER = os.getenv("DB_USER")
+PASSWORD = os.getenv("DB_PASSWORD")
+HOST = os.getenv("DB_HOST")
+PORT = os.getenv("DB_PORT")
+DBNAME = os.getenv("DB_NAME")
+
+print(USER)
+print(PASSWORD)
+print(HOST)
+print(PORT)
+print(DBNAME)
 
 # Remote Supabase DB
 DATABASES = {
@@ -111,12 +116,32 @@ DATABASES = {
         'PASSWORD': PASSWORD,
         'HOST': HOST,
         'PORT': PORT,
-        'OPTIONS': {'gssencmode': 'disable'},
+        'OPTIONS': {
+           'gssencmode': 'disable',
+           'sslmode': 'require',
+        },
     }
 }
+
 ## TESTING: DON'T DELETE
 """
 # Local Sqlite db
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres.fdxewxdpalqnzrkfblld',
+        'PASSWORD': 'z7GNq_f4#_kvbv9',
+        'HOST': 'aws-0-ap-southeast-1.pooler.supabase.com',
+        'PORT': '6543',
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
+    }
+}
+"""
+
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
