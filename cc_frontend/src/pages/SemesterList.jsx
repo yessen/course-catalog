@@ -2,9 +2,7 @@ import '../App.css'
 
 function SemesterList() {
   return (
-    <>
-      <h1>Binus Course Catalogue</h1>
-      
+    <>  
       <div className="row">
         <div className= "column" >
           {/* This table is for the Semester */}
