@@ -4,7 +4,7 @@ function CourseList() {
   return (
     <>
       <h1>Binus Course Catalogue</h1>
-      
+
       <div className="row">
         {/* Table for Course List */}
         <div className= "column" >
