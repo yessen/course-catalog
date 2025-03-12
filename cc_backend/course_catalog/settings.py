@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'course_catalog_app',
     'rest_framework',
     'rest_framework.authtoken',
-    'drf_yasg'
+    'drf_yasg',
+    'dotenv'
 ]
 
 REST_FRAMEWORK = {
@@ -93,8 +94,20 @@ WSGI_APPLICATION = 'course_catalog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-## TESTING: DON'T DELETE
+# Fetch variables
+DBNAME = os.getenv("POSTGRES_DATABASE")
+USER = os.getenv("POSTGRES_USER")
+PASSWORD = os.getenv("POSTGRES_PASSWORD")
+HOST = os.getenv("POSTGRES_HOST")
+PORT = os.getenv("DB_PORT")
 
+#print(DBNAME)
+#print(USER)
+#print(PASSWORD)
+#print(HOST)
+#print(PORT)
+
+# Remote Supabase DB
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -117,35 +130,12 @@ DATABASES = {
         'HOST': 'aws-0-ap-southeast-1.pooler.supabase.com',
         'PORT': '6543',
         'OPTIONS': {
-            'sslmode': 'require',
+           'gssencmode': 'disable',
+           #'sslmode': 'require',
         },
     }
 }
 
-"""
-
-
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-"""
-
-"""
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'course_catalog_db',
-        'USER': 'postgres', 
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
 """
 
 
@@ -184,7 +174,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / "staticfiles" / "static"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
