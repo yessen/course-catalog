@@ -1,12 +1,20 @@
 import re
 import django
 import os
+import sys
 
+# Get the absolute path of the project root (two levels up)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(script_dir, "..", ".."))
+
+# Add project root to Python path
+sys.path.append(project_root)
+
+# Set Django settings module
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "course_catalog.settings")
 django.setup()
 
 from course_catalog_app.models import Semester, Course, SemesterCourse
-
 
 def populate_curriculum(document_text):
     # Ensure semesters 1-8 exist
@@ -44,8 +52,9 @@ def populate_curriculum(document_text):
 
     return "Curriculum successfully populated!"
 
-# Example usage
-with open("curriculum.txt", "r") as file:
+# Example usage (use the correct path for the curriculum file)
+curriculum_file_path = os.path.join(script_dir, "curriculum.txt")
+with open(curriculum_file_path, "r") as file:
     curriculum_text = file.read()
 
 result = populate_curriculum(curriculum_text)
