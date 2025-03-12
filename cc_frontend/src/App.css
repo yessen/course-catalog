@@ -54,8 +54,14 @@ th, td {
   padding: 16px;
 }
 
+.binuslogo{
+  height: 5;
+  width: 10;
+  will-change: filter;
+  transition: filter 300ms;
+}
 .logo {
-  height: 6em;
+  height: 2em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
