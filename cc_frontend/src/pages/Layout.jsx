@@ -1,5 +1,5 @@
 import { Outlet, Link } from "react-router";
-import IMAGES from "../Images/Images";
+// import IMAGES from "../Images/Images";
 
 import React from "react";
 import {
@@ -30,9 +30,22 @@ export function StickyNavbar() {
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center">
-          Pages
+          <Link to="/courselist">Course List</Link>
         </a>
       </Typography>
+
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        
+        <a href="#" className="flex items-center">
+          <Link to="/semesterlist">Semester List</Link>
+        </a>
+      </Typography>
+
       <Typography
         as="li"
         variant="small"
@@ -43,17 +56,8 @@ export function StickyNavbar() {
           Account
         </a>
       </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Blocks
-        </a>
-      </Typography>
-      <Typography
+      
+      {/* <Typography
         as="li"
         variant="small"
         color="blue-gray"
@@ -62,13 +66,13 @@ export function StickyNavbar() {
         <a href="#" className="flex items-center">
           Docs
         </a>
-      </Typography>
+      </Typography> */}
     </ul>
   );
  
   return (
     <div className="-m-6 max-h-[768px] w-[calc(100%+48px)] overflow-scroll">
-      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
+      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none bg-[rgba(255,255,255,0.15)] px-4 py-2 lg:px-8 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography
             as="a"
@@ -77,13 +81,7 @@ export function StickyNavbar() {
           >
             Course Catalogue
           </Typography>
-          {/* <Card className="mb-12 overflow-hidden">
-            <img
-              alt="Binus Logo"
-              className="logo"
-              src={IMAGES.BinusLogo}
-            />
-          </Card> */}
+          
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
             <div className="flex items-center gap-x-1">
@@ -161,30 +159,13 @@ export function StickyNavbar() {
             src="https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2717&q=80"
           />
         </Card>
-        <Typography variant="h2" color="blue-gray" className="mb-2">
-          What is Material Tailwind
-        </Typography>
-        <Typography color="gray" className="font-normal">
-          Can you help me out? you will get a lot of free exposure doing this
-          can my website be in english?. There is too much white space do less
-          with more, so that will be a conversation piece can you rework to make
-          the pizza look more delicious other agencies charge much lesser can
-          you make the blue bluer?. I think we need to start from scratch can my
-          website be in english?, yet make it sexy i&apos;ll pay you in a week
-          we dont need to pay upfront i hope you understand can you make
-          it stand out more?. Make the font bigger can you help me out? you will
-          get a lot of free exposure doing this that&apos;s going to be a chunk
-          of change other agencies charge much lesser. Are you busy this
-          weekend? I have a new project with a tight deadline that&apos;s going
-          to be a chunk of change. There are more projects lined up charge extra
-          the next time.
-        </Typography>
+        <Outlet />
       </div>
     </div>
   );
 }
 
-export function Layout() {
+// export function Layout() {
 
   // return (
   //   <>
@@ -215,6 +196,6 @@ export function Layout() {
   //     <Outlet />
   //   </>
   // )
-}
+// }
 
 export default StickyNavbar
