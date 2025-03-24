@@ -28,6 +28,7 @@ export function StickyNavbar() {
         variant="small"
         color="blue-gray"
         className="p-1 font-normal"
+
       >
         <a href="#" className="flex items-center">
           <Link to="/courselist">Course List</Link>
@@ -75,11 +76,12 @@ export function StickyNavbar() {
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none bg-[rgba(255,255,255,0.15)] px-4 py-2 lg:px-8 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography
-            as="a"
+            as="text"
+            color="white"
             href="#"
             className="mr-4 cursor-pointer py-1.5 font-medium"
           >
-            Course Catalogue
+            <Link to="/">Course Catalogue</Link>
           </Typography>
           
           <div className="flex items-center gap-4">
