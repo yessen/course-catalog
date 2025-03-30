@@ -1,6 +1,8 @@
 import '../App.css'
 import { Card, Typography } from "@material-tailwind/react";
- 
+
+
+
 const TABLE_HEAD = ["Semester No.", "Course Name", ""];
  
 const TABLE_ROWS = [

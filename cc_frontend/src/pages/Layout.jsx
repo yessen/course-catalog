@@ -54,20 +54,21 @@ export function StickyNavbar() {
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center">
-          Account
+          <Link to="/streaming">Streaming</Link>
         </a>
-      </Typography>
-      
-      {/* <Typography
+      </Typography> 
+
+      <Typography
         as="li"
         variant="small"
         color="blue-gray"
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center">
-          Docs
+        <Link to="/account">Test</Link>
         </a>
-      </Typography> */}
+      </Typography>
+      
     </ul>
   );
  

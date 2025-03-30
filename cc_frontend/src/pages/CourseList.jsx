@@ -25,7 +25,32 @@ const TABLE_ROWS_1 = [
     scu: "8",
   },
 ];
+
+const TABLE_HEAD_2 = ["Course List", "SCU"];
  
+const TABLE_ROWS_2 = [
+  {
+    course_list: "Course",
+    scu: "8",
+  },
+  {
+    course_list: "Course",
+    scu: "8",
+  },  
+  {
+    course_list: "Course",
+    scu: "8",
+  },  
+  {
+    course_list: "Course",
+    scu: "8",
+  },  
+  {
+    course_list: "Course",
+    scu: "8",
+  },
+];
+
 export function CourseList() {
   return (
     <div className = 'row'>
@@ -88,7 +113,7 @@ export function CourseList() {
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
-                {TABLE_HEAD_1.map((head) => (
+                {TABLE_HEAD_2.map((head) => (
                   <th
                     key={head}
                     className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
@@ -106,8 +131,8 @@ export function CourseList() {
             </thead>
             <tbody>
               {/* Course List and SCU */}
-              {TABLE_ROWS_1.map(({ course_list, scu, }, index) => {
-                const isLast = index === TABLE_ROWS_1.length - 1;
+              {TABLE_ROWS_2.map(({ course_list, scu, }, index) => {
+                const isLast = index === TABLE_ROWS_2.length - 1;
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
     
                 return (
