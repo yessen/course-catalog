@@ -1,57 +1,62 @@
 import '../App.css'
 import { Card, Typography } from "@material-tailwind/react";
- 
+import { COURSE_DATA } from './components/course_data';
+
 const TABLE_HEAD_1 = ["Course List", "SCU"];
  
-const TABLE_ROWS_1 = [
-  {
-    course_list: "Course",
-    scu: "8",
-  },
-  {
-    course_list: "Course",
-    scu: "8",
-  },  
-  {
-    course_list: "Course",
-    scu: "8",
-  },  
-  {
-    course_list: "Course",
-    scu: "8",
-  },  
-  {
-    course_list: "Course",
-    scu: "8",
-  },
-];
+// const TABLE_ROWS_1 = [
+//   {
+//     course_list: "Course",
+//     scu: "8",
+//   },
+//   {
+//     course_list: "Course",
+//     scu: "8",
+//   },  
+//   {
+//     course_list: "Course",
+//     scu: "8",
+//   },  
+//   {
+//     course_list: "Course",
+//     scu: "8",
+//   },  
+//   {
+//     course_list: "Course",
+//     scu: "8",
+//   },
+// ];
 
+// This is where the detail is supposed to be
 const TABLE_HEAD_2 = ["Course List", "SCU"];
  
 const TABLE_ROWS_2 = [
   {
-    course_list: "Course",
+    course_name: "Course",
     scu: "8",
   },
   {
-    course_list: "Course",
+    course_name: "Course",
     scu: "8",
   },  
   {
-    course_list: "Course",
+    course_name: "Course",
     scu: "8",
   },  
   {
-    course_list: "Course",
+    course_name: "Course",
     scu: "8",
   },  
   {
-    course_list: "Course",
+    course_name: "Course",
     scu: "8",
   },
 ];
 
 export function CourseList() {
+
+  const TABLE_ROWS_1 = COURSE_DATA;
+
   return (
     <div className = 'row'>
       <div className='column'>
@@ -77,23 +82,25 @@ export function CourseList() {
             </thead>
             <tbody>
               {/* Course List and SCU */}
-              {TABLE_ROWS_1.map(({ course_list, scu, }, index) => {
+              {TABLE_ROWS_1.map(({ course_name, scu, }, index) => {
                 const isLast = index === TABLE_ROWS_1.length - 1;
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
     
                 return (
-                  <tr key={course_list}>
+                  <tr key={course_name}>
                     <td className={classes}>
                       <Typography
+                        as = "a"
                         variant="small"
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {course_list}
+                        {course_name}
                       </Typography>
                     </td>
                     <td className={classes}>
                       <Typography
+                        as = "a"
                         variant="small"
                         color="blue-gray"
                         className="font-normal"
@@ -131,19 +138,19 @@ export function CourseList() {
             </thead>
             <tbody>
               {/* Course List and SCU */}
-              {TABLE_ROWS_2.map(({ course_list, scu, }, index) => {
+              {TABLE_ROWS_2.map(({ course_name, scu, }, index) => {
                 const isLast = index === TABLE_ROWS_2.length - 1;
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
     
                 return (
-                  <tr key={course_list}>
+                  <tr key={course_name}>
                     <td className={classes}>
                       <Typography
                         variant="small"
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {course_list}
+                        {course_name}
                       </Typography>
                     </td>
                     <td className={classes}>

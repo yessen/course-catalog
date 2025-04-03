@@ -1,6 +1,5 @@
 import { Outlet, Link } from "react-router";
 // import IMAGES from "../Images/Images";
-
 import React from "react";
 import {
   Navbar,

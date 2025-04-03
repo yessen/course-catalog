@@ -1,42 +1,44 @@
 import '../App.css'
 import { Card, Typography } from "@material-tailwind/react";
+import { COURSE_DATA } from "./components/course_data";
+const TABLE_HEAD = ["Course Code", "Semester No.", "Course Name", "SCU"];
  
-const TABLE_HEAD = ["Course Code", "Group", "Course", "SCU"];
- 
-const TABLE_ROWS = [
-  {
-    course_code: "John Michael",
-    group: "Manager",
-    course_name: "23/04/18",
-    scu: "5",
-  },
-  {
-    course_code: "John Michael",
-    group: "Manager",
-    course_name: "23/04/18",
-    scu: "5",
-  },
-  {
-    course_code: "John Michael",
-    group: "Manager",
-    course_name: "23/04/18",
-    scu: "5",
-  },
-  {
-    course_code: "John Michael",
-    group: "Manager",
-    course_name: "23/04/18",
-    scu: "5",
-  },
-  {
-    course_code: "John Michael",
-    group: "Manager",
-    course_name: "23/04/18",
-    scu: "5",
-  },
-];
+// Full data here
+// const TABLE_ROWS = [
+//   {
+//     course_code: "John Michael",
+//     semester: "1",
+//     course_name: "23/04/18",
+//     scu: "5",
+//   },
+//   {
+//     course_code: "John Michael",
+//     semester: "1",
+//     course_name: "23/04/18",
+//     scu: "5",
+//   },
+//   {
+//     course_code: "John Michael",
+//     semester: "1",
+//     course_name: "23/04/18",
+//     scu: "5",
+//   },
+//   {
+//     course_code: "John Michael",
+//     semester: "1",
+//     course_name: "23/04/18",
+//     scu: "5",
+//   },
+//   {
+//     course_code: "John Michael",
+//     semester: "1",
+//     course_name: "23/04/18",
+//     scu: "5",
+//   },
+// ];
  
 export function Streaming() {
+  const TABLE_ROWS = COURSE_DATA;
   return (
     <Card className="h-full w-full overflow-scroll">
       <table className="w-full min-w-max table-auto text-left">
@@ -59,7 +61,7 @@ export function Streaming() {
           </tr>
         </thead>
         <tbody>
-          {TABLE_ROWS.map(({ course_code, group, course_name, scu }, index) => {
+          {TABLE_ROWS.map(({ course_code, semester, course_name, scu }, index) => {
             const isLast = index === TABLE_ROWS.length - 1;
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
  
@@ -80,7 +82,7 @@ export function Streaming() {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {group}
+                    {semester}
                   </Typography>
                 </td>
                 <td className={classes}>

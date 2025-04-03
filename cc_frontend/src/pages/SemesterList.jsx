@@ -1,34 +1,32 @@
 import '../App.css'
 import { Card, Typography } from "@material-tailwind/react";
+import { SEMESTER_DATA } from './components/semester_data';
 
 
 
-const TABLE_HEAD = ["Semester No.", "Course Name", ""];
+const TABLE_HEAD = ["Semester No.", "Course Name"];
  
-const TABLE_ROWS = [
-  {
-    course_name: "John Michael",
-    semester_no: "Manager",
-  },
-  {
-    course_name: "John Michael",
-    semester_no: "Manager",
-  },
-  {
-    course_name: "John Michael",
-    semester_no: "Manager",
-  },
-  {
-    course_name: "John Michael",
-    semester_no: "Manager",
-  },
-  {
-    course_name: "John Michael",
-    semester_no: "Manager",
-  },
-];
+// const TABLE_ROWS = [
+//   {
+//     semester_no: "Manager",
+//     total_scu: "20",
+//   },
+//   {
+//     semester_no: "Manager",
+//     total_scu: "20",
+//   },
+//   {
+//     semester_no: "Manager",
+//     total_scu: "20",
+//   },
+//   {
+//     semester_no: "Manager",
+//     total_scu: "20",
+//   },
+// ];
  
 export function SemesterList() {
+  const TABLE_ROWS = SEMESTER_DATA;
   return (
     <div className='row'>
       <div className='column'>
@@ -50,25 +48,30 @@ export function SemesterList() {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(({ course_name, semester_no }, index) => {
+              {TABLE_ROWS.map(({ semester_no, total_scu }, index) => {
                 const isLast = index === TABLE_ROWS.length - 1;
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
     
                 return (
-                  <tr key={course_name}>
+                  <tr key={semester_no}>
                     <td className={classes}>
-                      <Typography variant="small" color="blue-gray" className="font-normal">
-                        {course_name}
-                      </Typography>
-                    </td>
-                    <td className={`${classes} bg-blue-gray-50/50`}>
-                      <Typography variant="small" color="blue-gray" className="font-normal">
+                      <Typography 
+                        as = "a"
+                        variant="small" 
+                        color="blue-gray" 
+                        className="font-normal"
+                      >
                         {semester_no}
                       </Typography>
                     </td>
                     <td className={`${classes} bg-blue-gray-50/50`}>
-                      <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium">
-                        Edit
+                      <Typography 
+                        as = "a"
+                        variant="small" 
+                        color="blue-gray" 
+                        className="font-normal"
+                      >
+                        {total_scu}
                       </Typography>
                     </td>
                   </tr>
