@@ -1,29 +1,10 @@
 import '../App.css'
 import { Card, Typography } from "@material-tailwind/react";
-import { SEMESTER_DATA } from './components/semester_data';
+import { SEMESTER_DATA } from '../components/SemesterData';
 
 
 
 const TABLE_HEAD = ["Semester No.", "Course Name"];
- 
-// const TABLE_ROWS = [
-//   {
-//     semester_no: "Manager",
-//     total_scu: "20",
-//   },
-//   {
-//     semester_no: "Manager",
-//     total_scu: "20",
-//   },
-//   {
-//     semester_no: "Manager",
-//     total_scu: "20",
-//   },
-//   {
-//     semester_no: "Manager",
-//     total_scu: "20",
-//   },
-// ];
  
 export function SemesterList() {
   const TABLE_ROWS = SEMESTER_DATA;

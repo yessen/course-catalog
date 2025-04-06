@@ -1,32 +1,9 @@
 import '../App.css'
 import { Card, Typography } from "@material-tailwind/react";
-import { COURSE_DATA } from './components/course_data';
+import { COURSE_DATA } from '../components/CourseData';
 
 const TABLE_HEAD_1 = ["Course List", "SCU"];
  
-// const TABLE_ROWS_1 = [
-//   {
-//     course_list: "Course",
-//     scu: "8",
-//   },
-//   {
-//     course_list: "Course",
-//     scu: "8",
-//   },  
-//   {
-//     course_list: "Course",
-//     scu: "8",
-//   },  
-//   {
-//     course_list: "Course",
-//     scu: "8",
-//   },  
-//   {
-//     course_list: "Course",
-//     scu: "8",
-//   },
-// ];
-
 // This is where the detail is supposed to be
 const TABLE_HEAD_2 = ["Course List", "SCU"];
  

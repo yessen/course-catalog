@@ -1,41 +1,7 @@
 import '../App.css'
 import { Card, Typography } from "@material-tailwind/react";
-import { COURSE_DATA } from "./components/course_data";
+import { COURSE_DATA } from "../components/CourseData";
 const TABLE_HEAD = ["Course Code", "Semester No.", "Course Name", "SCU"];
- 
-// Full data here
-// const TABLE_ROWS = [
-//   {
-//     course_code: "John Michael",
-//     semester: "1",
-//     course_name: "23/04/18",
-//     scu: "5",
-//   },
-//   {
-//     course_code: "John Michael",
-//     semester: "1",
-//     course_name: "23/04/18",
-//     scu: "5",
-//   },
-//   {
-//     course_code: "John Michael",
-//     semester: "1",
-//     course_name: "23/04/18",
-//     scu: "5",
-//   },
-//   {
-//     course_code: "John Michael",
-//     semester: "1",
-//     course_name: "23/04/18",
-//     scu: "5",
-//   },
-//   {
-//     course_code: "John Michael",
-//     semester: "1",
-//     course_name: "23/04/18",
-//     scu: "5",
-//   },
-// ];
  
 export function Streaming() {
   const TABLE_ROWS = COURSE_DATA;

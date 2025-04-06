@@ -1,3 +1,4 @@
+// Full data here
 export const COURSE_DATA = [
   {
     course_code: "John Michael",
@@ -7,19 +8,19 @@ export const COURSE_DATA = [
   },
   {
     course_code: "John Michael",
-    semester: "2",
+    semester: "1",
     course_name: "23/04/18",
     scu: "5",
   },
   {
     course_code: "John Michael",
-    semester: "3",
+    semester: "1",
     course_name: "23/04/18",
     scu: "5",
   },
   {
     course_code: "John Michael",
-    semester: "4",
+    semester: "1",
     course_name: "23/04/18",
     scu: "5",
   },
