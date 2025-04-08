@@ -48,9 +48,9 @@ INSTALLED_APPS = [
     'course_catalog_app',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'drf_yasg',
     'dotenv',
-    'rest_framework_simplejwt',
     'corsheaders',
 ]
 
@@ -87,6 +87,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://course-catalog-frontend.vercel.app"
 ]
 
 
