@@ -4,7 +4,7 @@ import { SEMESTER_DATA } from '../components/SemesterData';
 
 
 
-const TABLE_HEAD = ["Semester No.", "Course Name"];
+const TABLE_HEAD = ["Semester No.", "Max SCU"];
  
 export function SemesterList() {
   const TABLE_ROWS = SEMESTER_DATA;
@@ -29,7 +29,7 @@ export function SemesterList() {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(({ semester_no, total_scu }, index) => {
+              {TABLE_ROWS.map(({ semester_no, max_scu }, index) => {
                 const isLast = index === TABLE_ROWS.length - 1;
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
     
@@ -52,7 +52,7 @@ export function SemesterList() {
                         color="blue-gray" 
                         className="font-normal"
                       >
-                        {total_scu}
+                        {max_scu}
                       </Typography>
                     </td>
                   </tr>
