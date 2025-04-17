@@ -13,7 +13,7 @@ export function Streaming() {
   const  [data, setData] = useState([])
   useEffect(()=> {
     axios.get('https://course-catalog-backend.vercel.app/api/courses/')
-      .then(res => {setData(res.data)})
+      .then(res => {console.log(res.data)})
       .catch(err => {console.log(err)})
   }, [])
 

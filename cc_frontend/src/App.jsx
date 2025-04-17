@@ -6,6 +6,7 @@ import Layout from "./pages/Layout";
 import Login from "./pages/Login";
 import Streaming from "./pages/Streaming";
 import { AuthProvider } from "./contexts/AuthContext";
+import ErrorBoundary from "./components/ErrorBoundary"
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
