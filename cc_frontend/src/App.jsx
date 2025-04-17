@@ -20,7 +20,12 @@ function App() {
             {/* <Route element={<PrivateRoute />}> */}
               <Route path="semesterlist" element={<SemesterList />} />
               <Route path="courselist" element={<CourseList />} />
-              <Route path="streaming" element={<Streaming />} />
+              <Route path="streaming" element={
+                <ErrorBoundary>
+                  <Streaming />
+                </ErrorBoundary>
+                  
+                } />
             {/* </Route> */}
           </Route>
         </Routes>

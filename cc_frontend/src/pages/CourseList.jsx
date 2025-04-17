@@ -1,14 +1,15 @@
 import '../App.css'
 import React, { useState } from "react";
-// import { Card, Typography } from "@material-tailwind/react";
-import {
-  Navbar,
-  MobileNav,
-  Typography,
-  Button,
-  IconButton,
-  Card,
-} from "@material-tailwind/react";
+// import { DetailsCourseList } from "../components/DetailsCourseList"
+import { Card, Typography } from "@material-tailwind/react";
+// import {
+//   Navbar,
+//   MobileNav,
+//   Typography,
+//   Button,
+//   IconButton,
+//   Card,
+// } from "@material-tailwind/react";
 import { COURSE_DATA } from '../components/CourseData';
 
 const TABLE_HEAD_1 = ["Course List", "SCU"];
