@@ -13,12 +13,13 @@ export function Streaming() {
   const  [data, setData] = useState([])
   useEffect(()=> {
     axios.get('https://course-catalog-backend.vercel.app/api/courses/')
-      .then(res => {console.log(res.data)})
-      .catch(err => {console.log(err)})
+      .then(res => setData(res.data))
+      .catch(err => console.log(err))
   }, [])
-
+  
   return (
     <Card className="h-full w-full overflow-scroll">
+      
       <table className="w-full min-w-max table-auto text-left">
         <thead>
           <tr>
@@ -38,11 +39,10 @@ export function Streaming() {
             ))}
           </tr>
         </thead>
-        <tbody>
-          {TABLE_ROWS.map(({ id, course_code, semester, course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
+        <tbody>  
+          {data.map(({ id, course_code, semester, course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
             const isLast = index === TABLE_ROWS.length - 1;
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
- 
             return (
               <tr key={id}>
                 <td className={classes}>

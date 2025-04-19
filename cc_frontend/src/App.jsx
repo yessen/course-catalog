@@ -24,8 +24,7 @@ function App() {
               <Route path="streaming" element={
                 <ErrorBoundary>
                   <Streaming />
-                </ErrorBoundary>
-                  
+                </ErrorBoundary>  
                 } />
             {/* </Route> */}
           </Route>
