@@ -20,12 +20,20 @@ export function Streaming() {
 
     axios.get('https://course-catalog-backend.vercel.app/api/courses/',
       {headers: {
-        'Authorization': token
+        'Authorization': `token ${token}`
       }}
     )
-      .then(res => setData(res.data))
-      .catch(err => console.log(err))
+      .then(res => {setData(res.data)})
+      .catch(err => {
+        console.error("AxiosError:", err)
+        if (err.response && err.response.status === 401){
+          setError("Unauthorized. Please log in again.");
+        } else{
+          setError("Failed to fetch course data.")
+        }
+      })
   }, [])
+// Testing more
 
   // useEffect(() => {
   //   const token = localStorage.getItem("token");
