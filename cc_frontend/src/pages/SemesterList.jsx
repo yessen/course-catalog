@@ -1,13 +1,40 @@
 import '../App.css'
 import { Card, Typography } from "@material-tailwind/react";
 import { SEMESTER_DATA } from '../components/SemesterData';
-
+import axios from "axios";
+import React, {useEffect, useState } from 'react';
 
 
 const TABLE_HEAD = ["Semester No.", "Max SCU"];
  
 export function SemesterList() {
-  const TABLE_ROWS = SEMESTER_DATA;
+  // const TABLE_ROWS = SEMESTER_DATA;
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+    
+  useEffect(()=> {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setError("You need to log in first.");
+      return;
+    }
+
+    axios.get('https://course-catalog-backend.vercel.app/api/semesters/',
+      {headers: {
+        'Authorization': `token ${token}`
+      }}
+    )
+      .then(res => {setData(res.data)})
+      .catch(err => {
+        console.error("AxiosError:", err)
+        if (err.response && err.response.status === 401){
+          setError("Unauthorized. Please log in again.");
+        } else{
+          setError("Failed to fetch course data.")
+        }
+      })
+  }, [])
   return (
     <div className='row'>
       <div className='column'>
@@ -29,8 +56,8 @@ export function SemesterList() {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(({ semester_no, max_scu }, index) => {
-                const isLast = index === TABLE_ROWS.length - 1;
+              {data.map(({ semester_no, max_scu }, index) => {
+                const isLast = index === data.length - 1;
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
     
                 return (
