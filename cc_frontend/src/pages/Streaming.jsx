@@ -1,30 +1,39 @@
 import '../App.css'
 import { Card, Typography } from "@material-tailwind/react";
-import { COURSE_DATA } from "../components/CourseData";
 import axios from "axios";
 import React, {useEffect, useState } from 'react';
 
 
 const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites"];
 
+const DATA = 'https://course-catalog-backend.vercel.app/api/'
+
 export function Streaming() {
   // const TABLE_ROWS = COURSE_DATA;
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-    
+
   useEffect(()=> {
     const token = localStorage.getItem("token");
 
+    let endpoints = [
+      `${DATA}courses/`, 
+      `${DATA}semester-courses/`
+    ]
+    
     if (!token) {
       setError("You need to log in first.");
       return;
     }
 
-    axios.get('https://course-catalog-backend.vercel.app/api/courses/',
-      {headers: {
-        'Authorization': `token ${token}`
-      }}
-    )
+    axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+
+    // axios.get(
+    //   `${DATA}courses/`,
+    //   {headers: {
+    //     'Authorization': `token ${token}`
+    //   }}      
+    // )
       .then(res => {setData(res.data)})
       .catch(err => {
         console.error("AxiosError:", err)
@@ -34,6 +43,8 @@ export function Streaming() {
           setError("Failed to fetch course data.")
         }
       })
+      
+      
   }, [])
   
   return (
@@ -59,7 +70,7 @@ export function Streaming() {
           </tr>
         </thead>
         <tbody>  
-          {data.map(({ id, course_code, semester, course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
+          {data.map(({ id, course_code, semester_id, course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
             const isLast = index === data.length - 1;
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
             return (
@@ -88,7 +99,7 @@ export function Streaming() {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {semester}
+                    {semester_id}
                   </Typography>
                 </td>
                 <td className={classes}>
