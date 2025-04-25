@@ -10,31 +10,37 @@ const DATA = 'https://course-catalog-backend.vercel.app/api/'
 
 export function Streaming() {
   // const TABLE_ROWS = COURSE_DATA;
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({courses: [], semesterCourses: []});
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(()=> {
     const token = localStorage.getItem("token");
-
-    let endpoints = [
-      `${DATA}courses/`, 
-      `${DATA}semester-courses/`
-    ]
     
     if (!token) {
       setError("You need to log in first.");
+      setLoading(false);
       return;
     }
 
-    axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+    const headers = { Authorization: `Token ${token}` };
 
-    // axios.get(
-    //   `${DATA}courses/`,
-    //   {headers: {
-    //     'Authorization': `token ${token}`
-    //   }}      
-    // )
-      .then(res => {setData(res.data)})
+
+    // axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+    Promise.all([
+      axios.get(`${DATA}courses/`, { headers }),
+      axios.get(`${DATA}semester-courses/`, { headers })
+    ])
+      .then(([courseRes, semestersRes]) => {
+        setData({
+          courses: courseRes.data,
+          semester: semestersRes.data
+        });
+        const array1 = courseRes.data
+        const array2 = semestersRes.data
+        const array3 = array1.concat(array2)
+        console.log(array3)
+      })
       .catch(err => {
         console.error("AxiosError:", err)
         if (err.response && err.response.status === 401){
@@ -43,10 +49,13 @@ export function Streaming() {
           setError("Failed to fetch course data.")
         }
       })
-      
-      
+    .finally(()=> setLoading(false));  
   }, [])
-  
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Card className="h-full w-full overflow-scroll">
       
@@ -70,7 +79,7 @@ export function Streaming() {
           </tr>
         </thead>
         <tbody>  
-          {data.map(({ id, course_code, semester_id, course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
+          {(data.courses.map)(({ id, course_code, semester_id, course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
             const isLast = index === data.length - 1;
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
             return (

@@ -6,7 +6,7 @@ import React, {useEffect, useState } from 'react';
 
 
 const TABLE_HEAD = ["Semester No.", "Max SCU"];
- 
+
 export function SemesterList() {
   // const TABLE_ROWS = SEMESTER_DATA;
   const [data, setData] = useState([]);
@@ -14,26 +14,34 @@ export function SemesterList() {
     
   useEffect(()=> {
     const token = localStorage.getItem("token");
-
+    const semesterList = localStorage.getItem("semesterList")
+    
     if (!token) {
       setError("You need to log in first.");
       return;
     }
 
-    axios.get('https://course-catalog-backend.vercel.app/api/semesters/',
-      {headers: {
-        'Authorization': `token ${token}`
-      }}
-    )
-      .then(res => {setData(res.data)})
-      .catch(err => {
-        console.error("AxiosError:", err)
-        if (err.response && err.response.status === 401){
-          setError("Unauthorized. Please log in again.");
-        } else{
-          setError("Failed to fetch course data.")
-        }
-      })
+    if (semesterList){
+      const semesterData = JSON.parse(semesterList);
+      setData(semesterData);
+    } else {
+      axios.get('https://course-catalog-backend.vercel.app/api/semesters/',
+        {headers: {
+          'Authorization': `token ${token}`
+        }}
+      )
+        .then(res => {
+          setData(res.data)
+          localStorage.setItem("semesterList", JSON.stringify(res.data));
+        })
+        .catch(err => {
+          console.error("AxiosError:", err)
+          if (err.response && err.response.status === 401){
+            setError("Unauthorized. Please log in again.");
+          } else{
+            setError("Failed to fetch course data.")
+          }
+      })}
   }, [])
   return (
     <div className='row'>

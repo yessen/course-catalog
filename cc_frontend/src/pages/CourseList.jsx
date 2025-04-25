@@ -12,8 +12,6 @@ import React, {useEffect, useState } from 'react';
 //   IconButton,
 //   Card,
 // } from "@material-tailwind/react";
-import { COURSE_DATA } from '../components/CourseData';
-
 const TABLE_HEAD_1 = ["Course List", "SCU"];
 
 export function CourseList() {
@@ -30,12 +28,22 @@ export function CourseList() {
       return;
     }
 
-    axios.get('https://course-catalog-backend.vercel.app/api/courses/',
-      {headers: {
-        'Authorization': `token ${token}`
-      }}
-    )
-      .then(res => {setData(res.data)})
+    const courseList = localStorage.getItem("courseList")
+    
+    if (courseList){
+      const courseData = JSON.parse(courseList);
+      // console.log('Using cached data:', courseData);
+      setData(courseData);
+    } else {
+      axios.get('https://course-catalog-backend.vercel.app/api/courses/',
+        {headers: {
+          'Authorization': `token ${token}`
+        }}
+      )
+      .then(res => {
+        setData(res.data);
+        localStorage.setItem("courseList", JSON.stringify(res.data));
+      })
       .catch(err => {
         console.error("AxiosError:", err)
         if (err.response && err.response.status === 401){
@@ -44,6 +52,7 @@ export function CourseList() {
           setError("Failed to fetch course data.")
         }
       })
+    }
   }, [])
 
   return (
