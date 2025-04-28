@@ -1,6 +1,5 @@
 import '../App.css'
 import { Card, Typography } from "@material-tailwind/react";
-import { SEMESTER_DATA } from '../components/SemesterData';
 import axios from "axios";
 import React, {useEffect, useState } from 'react';
 
@@ -8,9 +7,9 @@ import React, {useEffect, useState } from 'react';
 const TABLE_HEAD = ["Semester No.", "Max SCU"];
 
 export function SemesterList() {
-  // const TABLE_ROWS = SEMESTER_DATA;
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
     
   useEffect(()=> {
     const token = localStorage.getItem("token");
@@ -41,8 +40,14 @@ export function SemesterList() {
           } else{
             setError("Failed to fetch course data.")
           }
-      })}
+      })
+    }
+    setLoading(false);
   }, [])
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className='row'>
       <div className='column'>

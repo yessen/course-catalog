@@ -10,13 +10,13 @@ const DATA = 'https://course-catalog-backend.vercel.app/api/'
 
 export function Streaming() {
   // const TABLE_ROWS = COURSE_DATA;
-  const [data, setData] = useState({courses: [], semesterCourses: []});
+  const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(()=> {
     const token = localStorage.getItem("token");
-    
+    const streamingList = localStorage.getItem("streamingList")
     if (!token) {
       setError("You need to log in first.");
       setLoading(false);
@@ -25,31 +25,44 @@ export function Streaming() {
 
     const headers = { Authorization: `Token ${token}` };
 
+    if (streamingList){
+      const streamingData = JSON.parse(streamingList);
+      setData(streamingData);
+      setLoading(false);
+    } else {
+      // axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+      Promise.all([
+        axios.get(`${DATA}courses/`, { headers }),
+        axios.get(`${DATA}semester-courses/`, { headers }),
+        axios.get(`${DATA}semesters/`, { headers })
+      ])
+        .then(([courseRes, semesterCourseRes, semestersRes]) => {
+          const semesters = semestersRes.data
+          const semesterCourses = semesterCourseRes.data
+          const courses = courseRes.data
 
-    // axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
-    Promise.all([
-      axios.get(`${DATA}courses/`, { headers }),
-      axios.get(`${DATA}semester-courses/`, { headers })
-    ])
-      .then(([courseRes, semestersRes]) => {
-        setData({
-          courses: courseRes.data,
-          semester: semestersRes.data
-        });
-        const array1 = courseRes.data
-        const array2 = semestersRes.data
-        const array3 = array1.concat(array2)
-        console.log(array3)
-      })
-      .catch(err => {
-        console.error("AxiosError:", err)
-        if (err.response && err.response.status === 401){
-          setError("Unauthorized. Please log in again.");
-        } else{
-          setError("Failed to fetch course data.")
-        }
-      })
-    .finally(()=> setLoading(false));  
+          //new corse storageafter combi
+          var streamingData = []
+          courses.forEach(data => {
+            const courseStream = semesterCourses.find((semesterCourses) => semesterCourses.course_id == data.id);
+            const semesterStream = semesters.find((semesters) => semesters.id == courseStream.semester_id);
+            data.semester_id = semesterStream.id
+            data.semester_no = semesterStream.semester_no
+            streamingData.push(data)
+          })
+          localStorage.setItem("streamingList", JSON.stringify(streamingData));
+          setData(streamingData);
+        })
+        .catch(err => {
+          console.error("AxiosError:", err)
+          if (err.response && err.response.status === 401){
+            setError("Unauthorized. Please log in again.");
+          } else{
+            setError("Failed to fetch course data.")
+          }
+        }) 
+        .finally(()=> setLoading(false));
+    }
   }, [])
 
   if (loading) {
@@ -79,7 +92,7 @@ export function Streaming() {
           </tr>
         </thead>
         <tbody>  
-          {(data.courses.map)(({ id, course_code, semester_id, course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
+          {(data.map)(({ id, course_code, semester_id , course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
             const isLast = index === data.length - 1;
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
             return (

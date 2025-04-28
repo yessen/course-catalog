@@ -1,5 +1,4 @@
 import '../App.css'
-// import { DetailsCourseList } from "../components/DetailsCourseList"
 import { Card, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import React, {useEffect, useState } from 'react';
@@ -15,16 +14,16 @@ import React, {useEffect, useState } from 'react';
 const TABLE_HEAD_1 = ["Course List", "SCU"];
 
 export function CourseList() {
-
-  // const TABLE_ROWS_1 = COURSE_DATA;
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
     
   useEffect(()=> {
     const token = localStorage.getItem("token");
 
     if (!token) {
       setError("You need to log in first.");
+      setLoading(false);
       return;
     }
 
@@ -53,7 +52,12 @@ export function CourseList() {
         }
       })
     }
+    setLoading(false);
   }, [])
+  
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className = 'row'>
@@ -80,7 +84,7 @@ export function CourseList() {
             </thead>
             <tbody>
               {/* Course List and SCU */}
-              {data.map(({ course_name, scu, }, index) => {
+              {data.map(({ course_name, scu }, index) => {
                 const isLast = index === data.length - 1;
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
     
