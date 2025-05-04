@@ -3,7 +3,6 @@ import { Card, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import React, {useEffect, useState } from 'react';
 
-
 const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites"];
 
 const DATA = 'https://course-catalog-backend.vercel.app/api/'
@@ -40,9 +39,10 @@ export function Streaming() {
           const semesters = semestersRes.data
           const semesterCourses = semesterCourseRes.data
           const courses = courseRes.data
+          
+          //new corse storage after combining relevent data
+          var streamingData = [];
 
-          //new corse storageafter combi
-          var streamingData = []
           courses.forEach(data => {
             const courseStream = semesterCourses.find((semesterCourses) => semesterCourses.course_id == data.id);
             const semesterStream = semesters.find((semesters) => semesters.id == courseStream.semester_id);
@@ -51,7 +51,7 @@ export function Streaming() {
             streamingData.push(data)
           })
           localStorage.setItem("streamingList", JSON.stringify(streamingData));
-          setData(streamingData);
+          setData(courseStream);
         })
         .catch(err => {
           console.error("AxiosError:", err)
@@ -61,8 +61,10 @@ export function Streaming() {
             setError("Failed to fetch course data.")
           }
         }) 
-        .finally(()=> setLoading(false));
     }
+    // semesterCourses.forEach(semester_id => console.log(semester_id));
+    // console.log(courseStream)
+    setLoading(false);
   }, [])
 
   if (loading) {
@@ -92,7 +94,7 @@ export function Streaming() {
           </tr>
         </thead>
         <tbody>  
-          {(data.map)(({ id, course_code, semester_id , course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
+          {(data.map)(({ id, course_code, semester_no , course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
             const isLast = index === data.length - 1;
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
             return (
@@ -121,7 +123,7 @@ export function Streaming() {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    {semester_id}
+                    {semester_no}
                   </Typography>
                 </td>
                 <td className={classes}>

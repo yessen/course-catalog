@@ -2,6 +2,8 @@ import '../App.css'
 import { Card, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import React, {useEffect, useState } from 'react';
+import Popup from '../components/Popup';
+import DetailsCourseList from '../components/DetailsCourseList';
 
 // import {
 //   Navbar,
@@ -17,7 +19,13 @@ export function CourseList() {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-    
+  const [buttonPopup, setButtonPopup] = useState(false)
+
+  const handleClick = (id) => {
+    const streamingList = JSON.parse(localStorage.getItem("streamingList"))
+    const streamInfo = streamingList.find((s) => s.id == id);
+    console.log(streamInfo)
+  }  
   useEffect(()=> {
     const token = localStorage.getItem("token");
 
@@ -84,20 +92,22 @@ export function CourseList() {
             </thead>
             <tbody>
               {/* Course List and SCU */}
-              {data.map(({ course_name, scu }, index) => {
+              {data.map(({ id, course_code, semester_no , course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
                 const isLast = index === data.length - 1;
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
-    
                 return (
-                  <tr key={course_name}>
+                  <tr key={id}>
                     <td className={classes}>
                       <Typography
                         as = "a"
                         variant="small"
                         color="blue-gray"
                         className="font-normal"
+                        onClick={() => handleClick(id)}
                       >
-                        {course_name}
+                        <button onClick={() => setButtonPopup(true)}>
+                          {course_name}
+                        </button>  
                       </Typography>
                     </td>
                     <td className={classes}>
@@ -117,6 +127,11 @@ export function CourseList() {
           </table>
         </Card>
       </div>
+      
+      <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+        <h3>My Popup</h3>
+        {/* <DetailsCourseList/> */}
+      </Popup>
     </div>
   );
 }

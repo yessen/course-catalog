@@ -10,7 +10,17 @@ export function SemesterList() {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  
+  var courseSemester = [];
+
+  const handleClick = (semester_no) => {
+    const streamingList = JSON.parse(localStorage.getItem("streamingList"))
+    const semesterInfo = streamingList.find((s) => s.semester_no == semester_no);
     
+    courseSemester.push(semesterInfo)
+    console.log(courseSemester)
+  }  
+
   useEffect(()=> {
     const token = localStorage.getItem("token");
     const semesterList = localStorage.getItem("semesterList")
@@ -69,18 +79,19 @@ export function SemesterList() {
               </tr>
             </thead>
             <tbody>
-              {data.map(({ semester_no, max_scu }, index) => {
+              {data.map(({ id, course_code, course_name, scu, passing_grade, course_group, is_core, prerequisites, semester_no, max_scu }, index) => {
                 const isLast = index === data.length - 1;
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
     
                 return (
-                  <tr key={semester_no}>
+                  <tr key={id}>
                     <td className={classes}>
                       <Typography 
                         as = "a"
                         variant="small" 
                         color="blue-gray" 
                         className="font-normal"
+                        // onClick={() => handleClick(semester_no)}
                       >
                         {semester_no}
                       </Typography>
