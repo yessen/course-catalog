@@ -2,7 +2,8 @@ import '../App.css'
 import { Card, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import React, {useEffect, useState } from 'react';
-
+import Popup from '../components/Popup'
+import DetailsCourseList from '../components/DetailsCourseList';
 
 const TABLE_HEAD = ["Semester No.", "Max SCU"];
 
@@ -10,15 +11,16 @@ export function SemesterList() {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  
-  var courseSemester = [];
-
+  const [buttonPopup, setButtonPopup] = useState(false)
+  const [dataID, setDataID] = useState([]);
+ 
   const handleClick = (semester_no) => {
     const streamingList = JSON.parse(localStorage.getItem("streamingList"))
-    const semesterInfo = streamingList.find((s) => s.semester_no == semester_no);
-    
-    courseSemester.push(semesterInfo)
-    console.log(courseSemester)
+    if(streamingList){
+      const semesterInfo = streamingList.filter((s) => s.semester_no == semester_no);
+      setDataID(semesterInfo)
+      // console.log(semesterInfo)
+    }
   }  
 
   useEffect(()=> {
@@ -91,9 +93,11 @@ export function SemesterList() {
                         variant="small" 
                         color="blue-gray" 
                         className="font-normal"
-                        // onClick={() => handleClick(semester_no)}
+                        onClick={() => handleClick(semester_no)}
                       >
-                        {semester_no}
+                        <button onClick={() => setButtonPopup(true)}>
+                          {semester_no}
+                        </button>  
                       </Typography>
                     </td>
                     <td className={`${classes} bg-blue-gray-50/50`}>
@@ -113,9 +117,10 @@ export function SemesterList() {
           </table>
         </Card>
       </div>
-
+      <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+        <DetailsCourseList idData={dataID}/>
+      </Popup> 
     </div>
-    
   );
 }
 

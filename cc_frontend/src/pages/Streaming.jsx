@@ -72,7 +72,8 @@ export function Streaming() {
   }
 
   return (
-    <Card className="h-full w-full overflow-scroll">
+    <div className='column'>
+      <Card className="h-full w-full overflow-scroll">
       
       <table className="w-full min-w-max table-auto text-left">
         <thead>
@@ -186,6 +187,8 @@ export function Streaming() {
         </tbody>
       </table>
     </Card>
+  </div>
+    
   );
 }
 export default Streaming
