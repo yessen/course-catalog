@@ -1,13 +1,10 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 
 const Home = () => {
     return (
-        <div style={styles.container}>
-            <Navbar /> {/* Include the Navbar */}
-
+        <div style={styles.container} className="container">
             {/* Main Content */}
-            <div style={styles.content}>
+            <div style={styles.content} className="content">
                 <h1>Welcome to Course Catalog</h1>
                 <p>An app to help students manage their courses.</p>
             </div>

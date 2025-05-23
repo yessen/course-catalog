@@ -5,10 +5,36 @@
   text-align: center;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
 .row {
   margin-left:-5px;
   margin-right:-5px;
 }
+
+ /* The navbar container */
+ /* .topnav {
+  overflow: hidden;
+  background-color: #333;
+} */
+
+/* Navbar links
+.nav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+} */
+
+/* Links - change color on hover */
+.font-normal a:hover {
+  color: black;
+} 
 
 .column{
   float: left;
@@ -33,7 +59,12 @@ th, td {
 }
 
 .logo {
-  height: 6em;
+  height: 70px;
+  align-self: left;
+}
+
+.logo {
+  height: 2em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;

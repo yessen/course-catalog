@@ -4,7 +4,9 @@ import SemesterList from "./pages/SemesterList";
 import CourseList from "./pages/CourseList";
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
+import Streaming from "./pages/Streaming";
 import { AuthProvider } from "./contexts/AuthContext";
+import ErrorBoundary from "./components/ErrorBoundary"
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
@@ -16,10 +18,15 @@ function App() {
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
 
-            <Route element={<PrivateRoute />}>
+            {/* <Route element={<PrivateRoute />}> */}
               <Route path="semesterlist" element={<SemesterList />} />
               <Route path="courselist" element={<CourseList />} />
-            </Route>
+              <Route path="streaming" element={
+                <ErrorBoundary>
+                  <Streaming />
+                </ErrorBoundary>  
+                } />
+            {/* </Route> */}
           </Route>
         </Routes>
       </AuthProvider>

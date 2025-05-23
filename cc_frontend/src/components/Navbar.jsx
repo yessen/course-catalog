@@ -4,10 +4,13 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
     return (
         <nav style={styles.navbar}>
-            <div style={styles.logo}>Course Catalog</div>
+            <div style={styles.logo}>
+                <Link to="/">Course Catalogue</Link>
+            </div>
             <div style={styles.navLinks}>
                 <Link to="/semesterlist" style={styles.navLink}>Semester List</Link>
                 <Link to="/courselist" style={styles.navLink}>Course List</Link>
+                <Link to="/streaming" style={styles.navLink}>Streaming</Link>
             </div>
             <div style={styles.authButtons}>
                 <Link to="/login" style={styles.loginButton}>Log in</Link>
