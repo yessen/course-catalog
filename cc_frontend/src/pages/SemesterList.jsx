@@ -95,9 +95,9 @@ export function SemesterList() {
                         className="font-normal"
                         onClick={() => handleClick(semester_no)}
                       >
-                        <button onClick={() => setButtonPopup(true)}>
+                        <div onClick={() => setButtonPopup(true)}>
                           {semester_no}
-                        </button>  
+                        </div>  
                       </Typography>
                     </td>
                     <td className={`${classes} bg-blue-gray-50/50`}>
