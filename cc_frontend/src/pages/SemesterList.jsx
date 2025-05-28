@@ -1,9 +1,10 @@
-import '../App.css'
 import { Card, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import React, {useEffect, useState } from 'react';
 import Popup from '../components/Popup'
 import DetailsCourseList from '../components/DetailsCourseList';
+import '../App.css'
+
 
 const TABLE_HEAD = ["Semester No.", "Max SCU"];
 
@@ -86,25 +87,24 @@ export function SemesterList() {
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
     
                 return (
-                  <tr key={id}>
-                    <td className={classes}>
+                  <tr key={id} className="even:bg-blue-50/10">
+                    <td className={`${classes} table-cell`} onClick={() => setButtonPopup(true)}>
                       <Typography 
                         as = "a"
                         variant="small" 
-                        color="blue-gray" 
+                        color="blue" 
                         className="font-normal"
-                        onClick={() => handleClick(semester_no)}
                       >
-                        <div onClick={() => setButtonPopup(true)}>
+                        <div onClick={() => handleClick(semester_no)} >
                           {semester_no}
                         </div>  
                       </Typography>
                     </td>
-                    <td className={`${classes} bg-blue-gray-50/50`}>
+                    <td className={`${classes}`}>
                       <Typography 
                         as = "a"
                         variant="small" 
-                        color="blue-gray" 
+                        color="blue" 
                         className="font-normal"
                       >
                         {max_scu}

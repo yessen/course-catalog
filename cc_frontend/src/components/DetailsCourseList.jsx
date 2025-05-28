@@ -83,11 +83,11 @@ const DetailsCourseList= (props) => {
               {TABLE_HEAD.map((head) => (
                 <th
                   key={head}
-                  className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                  className="border-b border-blue-100 bg-blue-gray-50 p-4"
                 >
                   <Typography
                     variant="small"
-                    color="blue-gray"
+                    color="blue"
                     className="font-normal leading-none opacity-70"
                   >
                     {head}
@@ -99,13 +99,13 @@ const DetailsCourseList= (props) => {
           <tbody>  
             {(data.map)(({ id, course_code, semester_no , course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
               const isLast = index === data.length - 1;
-              const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+              const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50"
               return (
-                <tr key={id}>
+                <tr key={id} className="even:bg-blue-50/10">
                   <td className={classes}>
                     <Typography
                       variant="small"
-                      color="blue-gray"
+                      color="blue"
                       className="font-normal"
                     >
                       {id}
@@ -114,7 +114,7 @@ const DetailsCourseList= (props) => {
                   <td className={classes}>
                     <Typography
                       variant="small"
-                      color="blue-gray"
+                      color="blue"
                       className="font-normal"
                     >
                       {course_code}
@@ -123,7 +123,7 @@ const DetailsCourseList= (props) => {
                   <td className={classes}>
                     <Typography
                       variant="small"
-                      color="blue-gray"
+                      color="blue"
                       className="font-normal"
                     >
                       {semester_no}
@@ -132,7 +132,7 @@ const DetailsCourseList= (props) => {
                   <td className={classes}>
                     <Typography
                       variant="small"
-                      color="blue-gray"
+                      color="blue"
                       className="font-normal"
                     >
                       {course_name}
@@ -141,7 +141,7 @@ const DetailsCourseList= (props) => {
                   <td className={classes}>
                     <Typography
                       variant="small"
-                      color="blue-gray"
+                      color="blue"
                       className="font-normal"
                     >
                       {scu}
@@ -150,7 +150,7 @@ const DetailsCourseList= (props) => {
                   <td className={classes}>
                     <Typography
                       variant="small"
-                      color="blue-gray"
+                      color="blue"
                       className="font-normal"
                     >
                       {passing_grade}
@@ -159,7 +159,7 @@ const DetailsCourseList= (props) => {
                   <td className={classes}>
                     <Typography
                       variant="small"
-                      color="blue-gray"
+                      color="blue"
                       className="font-normal"
                     >
                       {course_group}
@@ -168,7 +168,7 @@ const DetailsCourseList= (props) => {
                   <td className={classes}>
                     <Typography
                       variant="small"
-                      color="blue-gray"
+                      color="blue"
                       className="font-normal"
                     >
                       {is_core ? 'yes' : 'no'}
@@ -177,7 +177,7 @@ const DetailsCourseList= (props) => {
                   <td className={classes}>
                     <Typography
                       variant="small"
-                      color="blue-gray"
+                      color="blue"
                       className="font-normal"
                     >
                       {prerequisites}

@@ -132,18 +132,17 @@ export function CourseList() {
                 const isLast = index === data.length - 1;
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
                 return (
-                  <tr key={id}>
-                    <td className={classes}>
+                  <tr key={id} className="even:bg-blue-50/10">
+                    <td className={`${classes} table-cell`} onClick={() => setButtonPopup(true)}>
                       <Typography
                         as = "a"
                         variant="small"
                         color="blue-gray"
                         className="font-normal"
-                        onClick={() => handleClick(id)}
                       >
-                        <div onClick={() => setButtonPopup(true)}>
+                        <div onClick={() => handleClick(id)}>
                           {course_name}
-                        </div>  
+                        </div> 
                       </Typography>
                     </td>
                     <td className={classes}>

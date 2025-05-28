@@ -2,21 +2,22 @@ import '../App.css'
 import { Card, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import React, {useEffect, useState } from 'react';
-import StreamingSemesterList from '../components/StreamingSemesterList';
+
+// Table for each Streaming Semester
 const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites"];
 
 const DATA = 'https://course-catalog-backend.vercel.app/api/'
 
-export function Streaming() {
-  // const TABLE_ROWS = COURSE_DATA;
+const StreamingSemesterList= (props) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [dataID, setDataID] = useState([]);
+// If I put the var detailsData here then two is inputted. (might be the key to solve the double input bug) 
+
   useEffect(()=> {
-    var streamingSemester1 = [];
     const token = localStorage.getItem("token");
     const streamingList = localStorage.getItem("streamingList")
+    // var detailsData = [];
     if (!token) {
       setError("You need to log in first.");
       setLoading(false);
@@ -24,11 +25,12 @@ export function Streaming() {
     }
 
     const headers = { Authorization: `Token ${token}` };
-
+    
     if (streamingList){
-      const streamingData = JSON.parse(streamingList);
-      setData(streamingData);
-      setDataID(streamingSemester1)
+      // detailsData.push(props.idData)
+      setData(props.idData)
+      // setData(detailsData);
+      // console.log(detailsData)
       setLoading(false);
     } else {
       // axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
@@ -72,37 +74,35 @@ export function Streaming() {
   if (loading) {
     return <div>Loading...</div>;
   }
-
+  
   return (
-    <div className='row'>
-      <h1>Semester 1</h1>
-      <div className='column'>
-        <Card className="h-full w-full overflow-scroll">
-          <table className="w-full min-w-max table-auto text-left">
-            <thead>
-              <tr>
-                {TABLE_HEAD.map((head) => (
-                  <th
-                    key={head}
-                    className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+    <div className='column'>
+      <Card className="h-full w-full overflow-scroll">
+        <table className="w-full min-w-max table-auto text-left">
+          <thead>
+            <tr>
+              {TABLE_HEAD.map((head) => (
+                <th
+                  key={head}
+                  className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 position:sticky"
+                >
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal leading-none opacity-70"
                   >
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal leading-none opacity-70"
-                    >
-                      {head}
-                    </Typography>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>  
-              {(data.map)(({ id, course_code, semester_no , course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
-                const isLast = index === data.length - 1;
-                const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+                    {head}
+                  </Typography>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>  
+            {(data.map)(({ id, course_code, semester_no , course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
+              const isLast = index === data.length - 1;
+              const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
               return (
-                <tr key={id} className="even:bg-blue-50/10">
+                <tr key={id}>
                   <td className={classes}>
                     <Typography
                       variant="small"
@@ -187,15 +187,10 @@ export function Streaming() {
                 </tr>
               );
             })}
-            </tbody>
-          </table>
-        </Card>
-      </div>
-      <h1>Semester 2</h1>
-      <div className='column'> 
-        <StreamingSemesterList idData={dataID}/>
-      </div>
+          </tbody>
+        </table>
+      </Card>
     </div>
   );
 }
-export default Streaming
+export default StreamingSemesterList
