@@ -19,7 +19,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
-            {/* <Route element={<PrivateRoute />}> */}
+            <Route element={<PrivateRoute />}>
               <Route path="semesterlist" element={<SemesterList />} />
               <Route path="courselist" element={<CourseList />} />
               <Route path="streaming" element={
@@ -27,7 +27,7 @@ function App() {
                   <Streaming />
                 </ErrorBoundary>  
                 } />
-            {/* </Route> */}
+            </Route>
           </Route>
         </Routes>
       </AuthProvider>

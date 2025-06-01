@@ -23,6 +23,7 @@ const Login = () => {
                 localStorage.setItem("token", data.token);
                 setUser({ username, token: data.token });
                 alert("Login successful!");
+                document.location.href="/"
             } else {
                 setError(data.error || "Invalid credentials");
             }

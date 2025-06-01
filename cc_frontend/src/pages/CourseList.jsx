@@ -132,7 +132,7 @@ export function CourseList() {
                 const isLast = index === data.length - 1;
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
                 return (
-                  <tr key={id} className="even:bg-blue-50/10">
+                  <tr key={id} className="even:bg-blue-50/10 odd:bg-slate-950/10">
                     <td className={`${classes} table-cell`} onClick={() => setButtonPopup(true)}>
                       <Typography
                         as = "a"

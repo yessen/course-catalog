@@ -84,7 +84,7 @@ const StreamingSemesterList= (props) => {
               {TABLE_HEAD.map((head) => (
                 <th
                   key={head}
-                  className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 position:sticky"
+                  className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
                 >
                   <Typography
                     variant="small"
@@ -187,6 +187,19 @@ const StreamingSemesterList= (props) => {
                 </tr>
               );
             })}
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Total SCU</td>
+              {/* <td>{scu}</td> */}
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Cumalative SCU</td>
+            </tr>
           </tbody>
         </table>
       </Card>

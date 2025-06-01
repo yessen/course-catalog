@@ -3,6 +3,7 @@ import { Card, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import React, {useEffect, useState } from 'react';
 import StreamingSemesterList from '../components/StreamingSemesterList';
+import DetailsCourseList from '../components/DetailsCourseList';
 const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites"];
 
 const DATA = 'https://course-catalog-backend.vercel.app/api/'
@@ -13,22 +14,40 @@ export function Streaming() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [dataID, setDataID] = useState([]);
+
+  const [semOne, setSemOne] = useState([]);
+  const [semTwo, setSemTwo] = useState([]);
+  const [semThree, setSemThree] = useState([]);
+  const [semFour, setSemFour] = useState([]);
+  const [semFive, setSemFive] = useState([]);
+  const [semSix, setSemSix] = useState([]);
+  const [semSeven, setSemSeven] = useState([]);
+  const [semEight, setSemEight] = useState([]);
   useEffect(()=> {
-    var streamingSemester1 = [];
     const token = localStorage.getItem("token");
     const streamingList = localStorage.getItem("streamingList")
+
+    // filtered Semesters
+    const filtSemOne = (semester_no) => {
+      const streamingList = JSON.parse(localStorage.getItem("streamingList"))
+      if(streamingList){
+        const semesterInfo = streamingList.filter((s) => s.semester_no == semester_no);
+        setDataID(semesterInfo)
+        // console.log(semesterInfo)
+      }
+    }  
+
     if (!token) {
       setError("You need to log in first.");
       setLoading(false);
       return;
     }
-
+    
     const headers = { Authorization: `Token ${token}` };
 
     if (streamingList){
       const streamingData = JSON.parse(streamingList);
       setData(streamingData);
-      setDataID(streamingSemester1)
       setLoading(false);
     } else {
       // axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
@@ -50,8 +69,8 @@ export function Streaming() {
             const semesterStream = semesters.find((semesters) => semesters.id == courseStream.semester_id);
             data.semester_id = semesterStream.id
             data.semester_no = semesterStream.semester_no
-            streamingData.push(data)
-          })
+            streamingData.push(data)       
+          })         
           localStorage.setItem("streamingList", JSON.stringify(streamingData));
           setData(courseStream);
         })
@@ -68,11 +87,12 @@ export function Streaming() {
     // console.log(courseStream)
     setLoading(false);
   }, [])
-
+    
   if (loading) {
     return <div>Loading...</div>;
   }
 
+  
   return (
     <div className='row'>
       <h1>Semester 1</h1>
@@ -187,13 +207,51 @@ export function Streaming() {
                 </tr>
               );
             })}
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Total SCU</td>
+              {/* <td>{total.toFixed(2)}</td> */}
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Cumalative SCU</td>
+              <td></td>
+            </tr>
             </tbody>
           </table>
         </Card>
       </div>
       <h1>Semester 2</h1>
       <div className='column'> 
-        <StreamingSemesterList idData={dataID}/>
+        <DetailsCourseList idData={dataID}/>
+      </div>
+      <h1>Semester 3</h1>
+      <div className='column'> 
+        <DetailsCourseList idData={dataID}/>
+      </div>
+      <h1>Semester 4</h1>
+      <div className='column'> 
+        <DetailsCourseList idData={dataID}/>
+      </div>
+      <h1>Semester 5</h1>
+      <div className='column'> 
+        <DetailsCourseList idData={dataID}/>
+      </div>
+      <h1>Semester 6</h1>
+      <div className='column'> 
+        <DetailsCourseList idData={dataID}/>
+      </div>
+      <h1>Semester 7</h1>
+      <div className='column'> 
+        <DetailsCourseList idData={dataID}/>
+      </div>
+      <h1>Semester 8</h1>
+      <div className='column'> 
+        <DetailsCourseList idData={dataID}/>
       </div>
     </div>
   );

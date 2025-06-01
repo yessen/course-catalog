@@ -44,7 +44,8 @@ ul {
 
 .column{
   float: left;
-  width: auto;
+  width: 100%;
+  /* width: auto; */
   padding: 5px;
   overflow-x: auto;
   overflow-y: auto;
@@ -56,11 +57,12 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
-  border: 1px solid #ddd;
+  border: 1px solid;
 }
 
 th {
-  background-color: rgb(87, 76, 119);
+  background-color: rgb(114, 98, 133);
+  color: white;
 }
 
 th, td {
@@ -80,7 +82,7 @@ th, td {
   transition: filter 300ms;
 }
 .table-cell:hover{
-  background-color: rgba(43, 0, 255, 0.448);
+  background-color: rgba(43, 0, 255, 0.252);
 }
 
 .logo:hover {
