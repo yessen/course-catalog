@@ -15,27 +15,27 @@ export function Streaming() {
   const [loading, setLoading] = useState(true);
   const [dataID, setDataID] = useState([]);
 
-  const [semOne, setSemOne] = useState([]);
-  const [semTwo, setSemTwo] = useState([]);
-  const [semThree, setSemThree] = useState([]);
-  const [semFour, setSemFour] = useState([]);
-  const [semFive, setSemFive] = useState([]);
-  const [semSix, setSemSix] = useState([]);
-  const [semSeven, setSemSeven] = useState([]);
-  const [semEight, setSemEight] = useState([]);
+  // const [semOne, setSemOne] = useState([]);
+  // const [semTwo, setSemTwo] = useState([]);
+  // const [semThree, setSemThree] = useState([]);
+  // const [semFour, setSemFour] = useState([]);
+  // const [semFive, setSemFive] = useState([]);
+  // const [semSix, setSemSix] = useState([]);
+  // const [semSeven, setSemSeven] = useState([]);
+  // const [semEight, setSemEight] = useState([]);
   useEffect(()=> {
     const token = localStorage.getItem("token");
     const streamingList = localStorage.getItem("streamingList")
 
     // filtered Semesters
-    const filtSemOne = (semester_no) => {
-      const streamingList = JSON.parse(localStorage.getItem("streamingList"))
-      if(streamingList){
-        const semesterInfo = streamingList.filter((s) => s.semester_no == semester_no);
-        setDataID(semesterInfo)
-        // console.log(semesterInfo)
-      }
-    }  
+    const handleClick = (semester_no) => {
+    const streamingList = JSON.parse(localStorage.getItem("streamingList"))
+    if(streamingList){
+      const semesterInfo = streamingList.filter((s) => s.semester_no == semester_no);
+      setDataID(semesterInfo)
+      // console.log(semesterInfo)
+    }
+  }  
 
     if (!token) {
       setError("You need to log in first.");
@@ -97,7 +97,8 @@ export function Streaming() {
     <div className='row'>
       <h1>Semester 1</h1>
       <div className='column'>
-        <Card className="h-full w-full overflow-scroll">
+        <StreamingSemesterList idData={1}/>
+        {/* <Card className="h-full w-full overflow-scroll">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
@@ -118,7 +119,7 @@ export function Streaming() {
               </tr>
             </thead>
             <tbody>  
-              {(data.map)(({ id, course_code, semester_no , course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
+              {(data.filter((s) => s.semester_no == 1).map)(({ id, course_code, semester_no , course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
                 const isLast = index === data.length - 1;
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
               return (
@@ -207,51 +208,63 @@ export function Streaming() {
                 </tr>
               );
             })}
-            <tr>
+            <tr className='bg-indigo-300/50'>
               <td></td>
               <td></td>
               <td></td>
               <td>Total SCU</td>
-              {/* <td>{total.toFixed(2)}</td> */}
+              <td>{data.filter((s) => s.semester_no == 1).map(data => data.scu).reduce((accumulator, currentValue) =>
+                accumulator + currentValue, 0
+              )}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
-            <tr>
+            <tr className='bg-indigo-200/50'>
               <td></td>
               <td></td>
               <td></td>
               <td>Cumalative SCU</td>
+              <td>{data.filter((s) => (s.semester_no == 1)).map(data => data.scu).reduce((accumulator, currentValue) =>
+                accumulator + currentValue, 0
+              )}</td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td></td>
             </tr>
             </tbody>
           </table>
-        </Card>
+        </Card> */}
       </div>
       <h1>Semester 2</h1>
       <div className='column'> 
-        <DetailsCourseList idData={dataID}/>
+        <StreamingSemesterList idData={2}/>
       </div>
       <h1>Semester 3</h1>
       <div className='column'> 
-        <DetailsCourseList idData={dataID}/>
+        <StreamingSemesterList idData={3}/>
       </div>
       <h1>Semester 4</h1>
       <div className='column'> 
-        <DetailsCourseList idData={dataID}/>
+        <StreamingSemesterList idData={4}/>
       </div>
       <h1>Semester 5</h1>
       <div className='column'> 
-        <DetailsCourseList idData={dataID}/>
+        <StreamingSemesterList idData={5}/>
       </div>
       <h1>Semester 6</h1>
       <div className='column'> 
-        <DetailsCourseList idData={dataID}/>
+        <StreamingSemesterList idData={6}/>
       </div>
       <h1>Semester 7</h1>
       <div className='column'> 
-        <DetailsCourseList idData={dataID}/>
+        <StreamingSemesterList idData={7}/>
       </div>
       <h1>Semester 8</h1>
       <div className='column'> 
-        <DetailsCourseList idData={dataID}/>
+        <StreamingSemesterList idData={8}/>
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ const StreamingSemesterList= (props) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 // If I put the var detailsData here then two is inputted. (might be the key to solve the double input bug) 
-
+  const semesterNo = props.idData
   useEffect(()=> {
     const token = localStorage.getItem("token");
     const streamingList = localStorage.getItem("streamingList")
@@ -26,11 +26,13 @@ const StreamingSemesterList= (props) => {
 
     const headers = { Authorization: `Token ${token}` };
     
+
     if (streamingList){
       // detailsData.push(props.idData)
-      setData(props.idData)
       // setData(detailsData);
       // console.log(detailsData)
+      const streamingData = JSON.parse(streamingList);
+      setData(streamingData);
       setLoading(false);
     } else {
       // axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
@@ -90,115 +92,129 @@ const StreamingSemesterList= (props) => {
                     variant="small"
                     color="blue-gray"
                     className="font-normal leading-none opacity-70"
-                  >
-                    {head}
+                  >         
+                  {head}
                   </Typography>
-                </th>
-              ))}
+                    </th>
+                 ))}
             </tr>
           </thead>
-          <tbody>  
-            {(data.map)(({ id, course_code, semester_no , course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
-              const isLast = index === data.length - 1;
-              const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
-              return (
-                <tr key={id}>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {id}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {course_code}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {semester_no}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {course_name}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {scu}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {passing_grade}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {course_group}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {is_core ? 'yes' : 'no'}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {prerequisites}
-                    </Typography>
-                  </td>
-                </tr>
-              );
+            <tbody>  
+              {(data.filter((s) => s.semester_no == semesterNo).map)(({ id, course_code, semester_no , course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
+                const isLast = index === data.length - 1;
+                const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+                  return (
+                    <tr key={id} className="even:bg-blue-50/10">
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {id}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {course_code}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {semester_no}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {course_name}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                      >
+                          {scu}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {passing_grade}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {course_group}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {is_core ? 'yes' : 'no'}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {prerequisites}
+                        </Typography>
+                      </td>
+                    </tr>
+                  );
             })}
-            <tr>
+            <tr className='bg-indigo-300/50'>
               <td></td>
               <td></td>
               <td></td>
               <td>Total SCU</td>
-              {/* <td>{scu}</td> */}
+              <td>{data.filter((s) => s.semester_no == semesterNo).map(data => data.scu).reduce((accumulator, currentValue) =>
+                accumulator + currentValue, 0
+              )}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
-            <tr>
+            <tr className='bg-indigo-200/50'>
               <td></td>
               <td></td>
               <td></td>
               <td>Cumalative SCU</td>
+              <td>{data.filter((s) => 
+                (s.semester_no <= semesterNo)
+              ).map(data => data.scu).reduce((accumulator, currentValue) =>
+                accumulator + currentValue, 0)}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
           </tbody>
         </table>

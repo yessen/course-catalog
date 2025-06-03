@@ -63,6 +63,7 @@ table {
 th {
   background-color: rgb(114, 98, 133);
   color: white;
+  /* border-co; */
 }
 
 th, td {
