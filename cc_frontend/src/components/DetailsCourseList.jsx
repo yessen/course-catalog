@@ -3,7 +3,7 @@ import { Card, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import React, {useEffect, useState } from 'react';
 
-const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites"];
+const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites", "Edit"];
 
 const DATA = 'https://course-catalog-backend.vercel.app/api/'
 
@@ -181,6 +181,15 @@ const DetailsCourseList= (props) => {
                       className="font-normal"
                     >
                       {prerequisites}
+                    </Typography>
+                  </td>
+                  <td className={classes}>
+                    <Typography
+                      variant="small"
+                      color="blue"
+                      className="font-normal"
+                    >
+                      <button>Edit</button>
                     </Typography>
                   </td>
                 </tr>

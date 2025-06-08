@@ -1,11 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+// import { DefaultSidebar } from "./DefaultSideBar";
 
 const Navbar = () => {
+    // const [buttonPopup, setButtonPopup] = useState(false)
+
+    var log_token = "Log In"
+    const token = localStorage.getItem("token");
+    if (token) {
+        log_token = "Log Out"
+    }
+    // const handleClick = (id) => {
+    //     var courseDetails = [];
+    //     const streamingList = JSON.parse(localStorage.getItem("streamingList"))
+    //     if (streamingList){ 
+    //     const streamInfo = streamingList.find((s) => s.id == id);
+    //     courseDetails.push(streamInfo)
+    //     setDataID(courseDetails)
+    //     // console.log(streamInfo)
+    //     }
+    // }
+
     return (
         <nav style={styles.navbar}>
             <div style={styles.logo}>
-                <Link to="/">Course Catalogue</Link>
+                <Link to="/">Course Catalogue</Link>           
             </div>
             <div style={styles.navLinks}>
                 <Link to="/semesterlist" style={styles.navLink}>Semester List</Link>
@@ -13,10 +33,11 @@ const Navbar = () => {
                 <Link to="/streaming" style={styles.navLink}>Streaming</Link>
             </div>
             <div style={styles.authButtons}>
-                <Link to="/login" style={styles.loginButton}>Log in</Link>
+                <Link to="/login" style={styles.loginButton}>{log_token}</Link>
                 <Link to="/register" style={styles.signupButton}>Sign up</Link>
             </div>
         </nav>
+        
     );
 };
 

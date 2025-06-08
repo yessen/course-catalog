@@ -4,7 +4,7 @@ import axios from "axios";
 import React, {useEffect, useState } from 'react';
 
 // Table for each Streaming Semester
-const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites"];
+const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites", "Edit"];
 
 const DATA = 'https://course-catalog-backend.vercel.app/api/'
 
@@ -104,7 +104,7 @@ const StreamingSemesterList= (props) => {
                 const isLast = index === data.length - 1;
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
                   return (
-                    <tr key={id} className="even:bg-blue-50/10">
+                    <tr key={id} className="even:bg-blue-50/10 odd:bg-slate-950/10">
                       <td className={classes}>
                         <Typography
                           variant="small"
@@ -186,6 +186,15 @@ const StreamingSemesterList= (props) => {
                           {prerequisites}
                         </Typography>
                       </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          <button>Edit</button>
+                        </Typography>
+                      </td>
                     </tr>
                   );
             })}
@@ -201,6 +210,7 @@ const StreamingSemesterList= (props) => {
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
             </tr>
             <tr className='bg-indigo-200/50'>
               <td></td>
@@ -211,6 +221,7 @@ const StreamingSemesterList= (props) => {
                 (s.semester_no <= semesterNo)
               ).map(data => data.scu).reduce((accumulator, currentValue) =>
                 accumulator + currentValue, 0)}</td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>

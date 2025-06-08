@@ -6,7 +6,7 @@ import DetailsCourseList from '../components/DetailsCourseList';
 import '../App.css'
 
 
-const TABLE_HEAD = ["Semester No.", "Max SCU"];
+const TABLE_HEAD = ["Semester No.", "Max SCU", "Edit"];
 
 export function SemesterList() {
   const [data, setData] = useState([]);
@@ -87,7 +87,7 @@ export function SemesterList() {
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
     
                 return (
-                  <tr key={id} className="even:bg-blue-50/10">
+                  <tr key={id} className="even:bg-blue-50/10 odd:bg-slate-950/10">
                     <td className={`${classes} table-cell`} onClick={() => setButtonPopup(true)}>
                       <Typography 
                         as = "a"
@@ -108,6 +108,16 @@ export function SemesterList() {
                         className="font-normal"
                       >
                         {max_scu}
+                      </Typography>
+                    </td>
+                    <td className={`${classes}`}>
+                      <Typography 
+                        as = "a"
+                        variant="small" 
+                        color="blue" 
+                        className="font-normal"
+                      >
+                        <button>Edit</button>
                       </Typography>
                     </td>
                   </tr>

@@ -6,7 +6,7 @@ import Popup from '../components/Popup';
 import DetailsCourseList from '../components/DetailsCourseList';
 
 
-const TABLE_HEAD_1 = ["Course List", "SCU"];
+const TABLE_HEAD_1 = ["Course List", "SCU", "Edit"];
 const DATA = 'https://course-catalog-backend.vercel.app/api/'
 
 export function CourseList() {
@@ -153,6 +153,16 @@ export function CourseList() {
                         className="font-normal"
                       >
                         {scu}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        as = "a"
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        <button>Edit</button>
                       </Typography>
                     </td>
                   </tr>
