@@ -12,6 +12,9 @@ const StreamingSemesterList= (props) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [buttonPopup, setButtonPopup] = useState(false)
+  const [dataID, setDataID] = useState([]);
+  
 // If I put the var detailsData here then two is inputted. (might be the key to solve the double input bug) 
   const semesterNo = props.idData
   useEffect(()=> {
@@ -23,6 +26,16 @@ const StreamingSemesterList= (props) => {
       setLoading(false);
       return;
     }
+    
+    // Edit Click
+    const handleClick = (id) => {
+      const streamingList = JSON.parse(localStorage.getItem("streamingList"))
+      if(streamingList){
+        const editInfo = streamingList.filter((s) => s.id == id);
+        setDataID(editInfo)
+        // console.log(semesterInfo)
+      }
+    }  
 
     const headers = { Authorization: `Token ${token}` };
     
@@ -192,7 +205,7 @@ const StreamingSemesterList= (props) => {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          <button>Edit</button>
+                          <button onClick={() => handleClick(id)}>Edit</button>
                         </Typography>
                       </td>
                     </tr>
@@ -230,6 +243,10 @@ const StreamingSemesterList= (props) => {
           </tbody>
         </table>
       </Card>
+
+      {/* <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+        <DetailsCourseList idData={dataID}/>
+      </Popup> */}
     </div>
   );
 }

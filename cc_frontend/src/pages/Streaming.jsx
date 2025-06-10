@@ -13,7 +13,6 @@ export function Streaming() {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [dataID, setDataID] = useState([]);
 
   // const [semOne, setSemOne] = useState([]);
   // const [semTwo, setSemTwo] = useState([]);
@@ -26,16 +25,6 @@ export function Streaming() {
   useEffect(()=> {
     const token = localStorage.getItem("token");
     const streamingList = localStorage.getItem("streamingList")
-
-    // filtered Semesters
-    const handleClick = (semester_no) => {
-    const streamingList = JSON.parse(localStorage.getItem("streamingList"))
-    if(streamingList){
-      const semesterInfo = streamingList.filter((s) => s.semester_no == semester_no);
-      setDataID(semesterInfo)
-      // console.log(semesterInfo)
-    }
-  }  
 
     if (!token) {
       setError("You need to log in first.");
@@ -98,145 +87,6 @@ export function Streaming() {
       <h1>Semester 1</h1>
       <div className='column'>
         <StreamingSemesterList idData={1}/>
-        {/* <Card className="h-full w-full overflow-scroll">
-          <table className="w-full min-w-max table-auto text-left">
-            <thead>
-              <tr>
-                {TABLE_HEAD.map((head) => (
-                  <th
-                    key={head}
-                    className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-                  >
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal leading-none opacity-70"
-                    >
-                      {head}
-                    </Typography>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>  
-              {(data.filter((s) => s.semester_no == 1).map)(({ id, course_code, semester_no , course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
-                const isLast = index === data.length - 1;
-                const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
-              return (
-                <tr key={id} className="even:bg-blue-50/10">
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {id}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {course_code}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {semester_no}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {course_name}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {scu}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {passing_grade}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {course_group}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {is_core ? 'yes' : 'no'}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {prerequisites}
-                    </Typography>
-                  </td>
-                </tr>
-              );
-            })}
-            <tr className='bg-indigo-300/50'>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>Total SCU</td>
-              <td>{data.filter((s) => s.semester_no == 1).map(data => data.scu).reduce((accumulator, currentValue) =>
-                accumulator + currentValue, 0
-              )}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr className='bg-indigo-200/50'>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>Cumalative SCU</td>
-              <td>{data.filter((s) => (s.semester_no == 1)).map(data => data.scu).reduce((accumulator, currentValue) =>
-                accumulator + currentValue, 0
-              )}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            </tbody>
-          </table>
-        </Card> */}
       </div>
       <h1>Semester 2</h1>
       <div className='column'> 
@@ -266,6 +116,8 @@ export function Streaming() {
       <div className='column'> 
         <StreamingSemesterList idData={8}/>
       </div>
+
+      
     </div>
   );
 }
