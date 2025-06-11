@@ -4,7 +4,6 @@ import axios from "axios";
 import React, {useEffect, useState } from 'react';
 import Popup from './Popup';
 import EditDetailsList from './EditListDetails';
-import DetailsCourseList from './DetailsCourseList';
 
 // Table for each Streaming Semester
 const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites", "Edit"];
@@ -15,7 +14,6 @@ const StreamingSemesterList= (props) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [buttonPopup, setButtonPopup] = useState(false)
   const [editPopup, setEditPopup] = useState(false)
   const [dataID, setDataID] = useState([]);
   
@@ -26,7 +24,7 @@ const StreamingSemesterList= (props) => {
   // }
 
   // Edit Click
-    const handleClick = (id) => {
+  const handleClick = (id) => {
     var courseDetails = [];
     const streamingList = JSON.parse(localStorage.getItem("streamingList"))
     if (streamingList){ 
@@ -244,14 +242,14 @@ const StreamingSemesterList= (props) => {
                           {prerequisites}
                         </Typography>
                       </td>
-                      <td className={classes} onClick={() => setButtonPopup(true)}>
+                      <td className={classes} onClick={() => setEditPopup(true)}>
                         <Typography
                           variant="small"
                           color="blue-gray"
                           className="font-normal"
                           
                         >
-                          <button onClick={() => EditDetailsList(id)}>
+                          <button onClick={() => handleClick(id)}>
                             Edit
                           </button>
                         </Typography>
@@ -291,7 +289,7 @@ const StreamingSemesterList= (props) => {
           </tbody>
         </table>
       </Card>
-      
+
       <Popup trigger={editPopup} setTrigger={setEditPopup}>
         <EditDetailsList idData={dataID}/>
       </Popup>

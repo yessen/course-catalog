@@ -146,7 +146,7 @@ export function CourseList() {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        <div>
+                        <div onClick={() => handleClick(true)}>
                           {course_name}
                         </div> 
                       </Typography>
