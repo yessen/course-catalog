@@ -189,7 +189,7 @@ const EditDetailsList= (props) => {
                       color="blue"
                       className="font-normal"
                     >
-                      <button>Edit</button>
+                      <button>Save Changes</button>
                     </Typography>
                   </td>
                 </tr>

@@ -3,6 +3,7 @@ import axios from "axios";
 import React, {useEffect, useState } from 'react';
 import Popup from '../components/Popup'
 import DetailsCourseList from '../components/DetailsCourseList';
+import EditDetailsList from "../components/EditListDetails";
 import '../App.css'
 
 
@@ -13,6 +14,7 @@ export function SemesterList() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [buttonPopup, setButtonPopup] = useState(false)
+  const [editPopup, setEditPopup] = useState(false)
   const [dataID, setDataID] = useState([]);
  
   const handleClick = (semester_no) => {
@@ -110,14 +112,14 @@ export function SemesterList() {
                         {max_scu}
                       </Typography>
                     </td>
-                    <td className={`${classes}`}>
+                    <td className={`${classes}`} onClick={() => setEditPopup(true)}>
                       <Typography 
                         as = "a"
                         variant="small" 
                         color="blue" 
                         className="font-normal"
                       >
-                        <button>Edit</button>
+                        <button onClick={() => handleClick(semester_no)}>Edit</button>
                       </Typography>
                     </td>
                   </tr>
@@ -130,6 +132,10 @@ export function SemesterList() {
       <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
         <DetailsCourseList idData={dataID}/>
       </Popup> 
+
+      <Popup trigger={editPopup} setTrigger={setEditPopup}>
+        <EditDetailsList idData={dataID}/>
+      </Popup>
     </div>
   );
 }

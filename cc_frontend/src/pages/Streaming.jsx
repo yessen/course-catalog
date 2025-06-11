@@ -80,7 +80,6 @@ export function Streaming() {
   if (loading) {
     return <div>Loading...</div>;
   }
-
   
   return (
     <div className='row'>
@@ -116,8 +115,6 @@ export function Streaming() {
       <div className='column'> 
         <StreamingSemesterList idData={8}/>
       </div>
-
-      
     </div>
   );
 }

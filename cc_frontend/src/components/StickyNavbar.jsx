@@ -1,9 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import {
+  IconButton,
+  Typography,
+  Collapse,
+  Navbar,
+  Card,
+  List,
+  Avatar,
+  Menu,
+  Tooltip,
+  Accordion,
+} from "@material-tailwind/react";
+
 // import { DefaultSidebar } from "./DefaultSideBar";
 
-const Navbar = () => {
+// function CourseMenu(){
+
+// }
+
+
+const StickyNavbar = () => {
     // const [buttonPopup, setButtonPopup] = useState(false)
 
     var log_token = "Log In"
@@ -25,7 +42,8 @@ const Navbar = () => {
     return (
         <nav style={styles.navbar}>
             <div style={styles.logo}>
-                <Link to="/">Course Catalogue</Link>           
+                <Link to="/">Course Catalogue</Link>
+                {/* <Accordion/> */}
             </div>
             <div style={styles.navLinks}>
                 <Link to="/semesterlist" style={styles.navLink}>Semester List</Link>
@@ -95,4 +113,4 @@ const styles = {
     },
 };
 
-export default Navbar;
+export default StickyNavbar;
