@@ -6,7 +6,7 @@ import Popup from './Popup';
 import EditDetailsList from './EditListDetails';
 
 // Table for each Streaming Semester
-const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites", "Edit"];
+const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites", ""];
 
 const DATA = 'https://course-catalog-backend.vercel.app/api/'
 

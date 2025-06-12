@@ -17,6 +17,7 @@ const DetailsCourseList= (props) => {
   const [buttonPopup, setButtonPopup] = useState(false)
   const [editPopup, setEditPopup] = useState(false)
   const [dataID, setDataID] = useState([]);
+  const [editData, setEditData] = useState([]);
 // If I put the var detailsData here then two is inputted. (might be the key to solve the double input bug) 
 
   const handleClick = (id) => {
@@ -256,7 +257,7 @@ const DetailsCourseList= (props) => {
       </Card>
 
       <Popup trigger={editPopup} setTrigger={setEditPopup}>
-        <EditDetailsList idData={dataID}/>
+        <EditDetailsList editData={editData}/>
       </Popup>
     </div>
   );

@@ -1,9 +1,15 @@
 import '../App.css'
-import { Card, Typography } from "@material-tailwind/react";
+import 
+  { Card, 
+    Typography,
+    Input,
+    Select
+  } from "@material-tailwind/react";
 import axios from "axios";
 import React, {useEffect, useState } from 'react';
 
-const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites", "Edit"];
+
+const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites", "", ""];
 
 const DATA = 'https://course-catalog-backend.vercel.app/api/'
 
@@ -108,6 +114,7 @@ const EditDetailsList= (props) => {
                       color="blue"
                       className="font-normal"
                     >
+                      {/* Not Editable */}
                       {id}
                     </Typography>
                   </td>
@@ -117,6 +124,7 @@ const EditDetailsList= (props) => {
                       color="blue"
                       className="font-normal"
                     >
+                      {/* Free Text */}
                       {course_code}
                     </Typography>
                   </td>
@@ -126,6 +134,7 @@ const EditDetailsList= (props) => {
                       color="blue"
                       className="font-normal"
                     >
+                      {/* Integer Dropdown 1-8 */}
                       {semester_no}
                     </Typography>
                   </td>
@@ -135,6 +144,7 @@ const EditDetailsList= (props) => {
                       color="blue"
                       className="font-normal"
                     >
+                      {/* Free Text */}
                       {course_name}
                     </Typography>
                   </td>
@@ -144,6 +154,7 @@ const EditDetailsList= (props) => {
                       color="blue"
                       className="font-normal"
                     >
+                      {/* Integer Dropdown 1-10 */}
                       {scu}
                     </Typography>
                   </td>
@@ -153,6 +164,15 @@ const EditDetailsList= (props) => {
                       color="blue"
                       className="font-normal"
                     >
+                      {/* Dropdown A-E */}
+                      {/* <Select>
+                        <Select.List>
+                          <Select.Option>Material Tailwind React</Select.Option>
+                          <Select.Option>Material Tailwind HTML</Select.Option>
+                          <Select.Option>Material Tailwind Vue</Select.Option>
+                          <Select.Option>Material Tailwind Svelte</Select.Option>
+                        </Select.List>
+                      </Select> */}
                       {passing_grade}
                     </Typography>
                   </td>
@@ -162,6 +182,7 @@ const EditDetailsList= (props) => {
                       color="blue"
                       className="font-normal"
                     >
+                      {/* Dropdown */}
                       {course_group}
                     </Typography>
                   </td>
@@ -171,6 +192,7 @@ const EditDetailsList= (props) => {
                       color="blue"
                       className="font-normal"
                     >
+                      {/* Dropdown True or False */}
                       {is_core ? 'yes' : 'no'}
                     </Typography>
                   </td>
@@ -180,6 +202,7 @@ const EditDetailsList= (props) => {
                       color="blue"
                       className="font-normal"
                     >
+                      {/* Dropdown (Course Code list) */}
                       {prerequisites}
                     </Typography>
                   </td>
@@ -189,7 +212,16 @@ const EditDetailsList= (props) => {
                       color="blue"
                       className="font-normal"
                     >
-                      <button>Save Changes</button>
+                      <button>Save</button>
+                    </Typography>
+                  </td>
+                  <td className={classes}>
+                    <Typography
+                      variant="small"
+                      color="blue"
+                      className="font-normal"
+                    >
+                      <button>Delete</button>
                     </Typography>
                   </td>
                 </tr>

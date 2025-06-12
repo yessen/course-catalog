@@ -7,7 +7,7 @@ import EditDetailsList from "../components/EditListDetails";
 import '../App.css'
 
 
-const TABLE_HEAD = ["Semester No.", "Max SCU", "Edit"];
+const TABLE_HEAD = ["Semester No.", "Max SCU", ""];
 
 export function SemesterList() {
   const [data, setData] = useState([]);

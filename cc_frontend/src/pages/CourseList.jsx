@@ -7,7 +7,7 @@ import DetailsCourseList from '../components/DetailsCourseList';
 import EditDetailsList from '../components/EditListDetails';
 
 
-const TABLE_HEAD_1 = ["Course List", "SCU", "Edit"];
+const TABLE_HEAD_1 = ["Course List", "SCU", ""];
 const DATA = 'https://course-catalog-backend.vercel.app/api/'
 
 export function CourseList() {
