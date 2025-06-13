@@ -39,6 +39,13 @@ const StickyNavbar = () => {
     //     }
     // }
 
+    const Logout = () => {
+        if(token){
+            localStorage.clear()
+            document.location.href="/"
+        }
+    }
+
     return (
         <nav style={styles.navbar}>
             <div style={styles.logo}>
@@ -51,7 +58,7 @@ const StickyNavbar = () => {
                 <Link to="/streaming" style={styles.navLink}>Streaming</Link>
             </div>
             <div style={styles.authButtons}>
-                <Link to="/login" style={styles.loginButton}>{log_token}</Link>
+                <Link to="/login" style={styles.loginButton} onClick={Logout}>{log_token}</Link>
                 <Link to="/register" style={styles.signupButton}>Sign up</Link>
             </div>
         </nav>

@@ -6,7 +6,6 @@ import Popup from '../components/Popup';
 import DetailsCourseList from '../components/DetailsCourseList';
 import EditDetailsList from '../components/EditListDetails';
 
-
 const TABLE_HEAD_1 = ["Course List", "SCU", ""];
 const DATA = 'https://course-catalog-backend.vercel.app/api/'
 
@@ -180,7 +179,6 @@ export function CourseList() {
           </table>
         </Card>
       </div>
-      
       <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
         <DetailsCourseList idData={dataID}/>
       </Popup>

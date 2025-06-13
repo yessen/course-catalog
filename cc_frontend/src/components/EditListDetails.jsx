@@ -1,4 +1,5 @@
 import '../App.css'
+import Dropdown from './Dropdown';
 import 
   { Card, 
     Typography,
@@ -14,6 +15,7 @@ const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passin
 const DATA = 'https://course-catalog-backend.vercel.app/api/'
 
 const EditDetailsList= (props) => {
+  const [selected, setSelected] = useState("Choose One")
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -165,15 +167,7 @@ const EditDetailsList= (props) => {
                       className="font-normal"
                     >
                       {/* Dropdown A-E */}
-                      {/* <Select>
-                        <Select.List>
-                          <Select.Option>Material Tailwind React</Select.Option>
-                          <Select.Option>Material Tailwind HTML</Select.Option>
-                          <Select.Option>Material Tailwind Vue</Select.Option>
-                          <Select.Option>Material Tailwind Svelte</Select.Option>
-                        </Select.List>
-                      </Select> */}
-                      {passing_grade}
+                      <Dropdown selected={selected} setSelected={setSelected}/>
                     </Typography>
                   </td>
                   <td className={classes}>
@@ -230,6 +224,7 @@ const EditDetailsList= (props) => {
           </tbody>
         </table>
       </Card>
+      
     </div>
   );
 }

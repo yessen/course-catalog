@@ -3,7 +3,7 @@ import { Card, Typography } from "@material-tailwind/react";
 import axios from "axios";
 import React, {useEffect, useState } from 'react';
 import StreamingSemesterList from '../components/StreamingSemesterList';
-import DetailsCourseList from '../components/DetailsCourseList';
+
 const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites"];
 
 const DATA = 'https://course-catalog-backend.vercel.app/api/'
@@ -14,14 +14,6 @@ export function Streaming() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // const [semOne, setSemOne] = useState([]);
-  // const [semTwo, setSemTwo] = useState([]);
-  // const [semThree, setSemThree] = useState([]);
-  // const [semFour, setSemFour] = useState([]);
-  // const [semFive, setSemFive] = useState([]);
-  // const [semSix, setSemSix] = useState([]);
-  // const [semSeven, setSemSeven] = useState([]);
-  // const [semEight, setSemEight] = useState([]);
   useEffect(()=> {
     const token = localStorage.getItem("token");
     const streamingList = localStorage.getItem("streamingList")
