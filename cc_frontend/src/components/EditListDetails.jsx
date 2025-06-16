@@ -9,13 +9,16 @@ import
 import axios from "axios";
 import React, {useEffect, useState } from 'react';
 
-
 const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites", "", ""];
+
+const PASSING_GRADE = ['A','B','C','D','E','N/A']
+const SEMESTER_NUM = [1,2,3,4,5,6,7,8]
+const SCU = [1,2,3,4,5,6,7,8,9,10]
 
 const DATA = 'https://course-catalog-backend.vercel.app/api/'
 
 const EditDetailsList= (props) => {
-  const [selected, setSelected] = useState("Choose One")
+  // const [selected, setSelected] = useState("Choose One")
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -128,6 +131,7 @@ const EditDetailsList= (props) => {
                     >
                       {/* Free Text */}
                       {course_code}
+                      <Input/>
                     </Typography>
                   </td>
                   <td className={classes}>
@@ -138,6 +142,10 @@ const EditDetailsList= (props) => {
                     >
                       {/* Integer Dropdown 1-8 */}
                       {semester_no}
+                      <Dropdown dataType='SEMESTER'
+                        // selected={selected} 
+                        // setSelected={setSelected}
+                      />
                     </Typography>
                   </td>
                   <td className={classes}>
@@ -148,6 +156,7 @@ const EditDetailsList= (props) => {
                     >
                       {/* Free Text */}
                       {course_name}
+                      <Input/>
                     </Typography>
                   </td>
                   <td className={classes}>
@@ -158,6 +167,10 @@ const EditDetailsList= (props) => {
                     >
                       {/* Integer Dropdown 1-10 */}
                       {scu}
+                      <Dropdown dataType='SCU'
+                        // selected={selected} 
+                        // setSelected={setSelected}
+                      />
                     </Typography>
                   </td>
                   <td className={classes}>
@@ -167,7 +180,11 @@ const EditDetailsList= (props) => {
                       className="font-normal"
                     >
                       {/* Dropdown A-E */}
-                      <Dropdown selected={selected} setSelected={setSelected}/>
+                      {passing_grade}
+                      <Dropdown dataType='GRADE'
+                        // selected={selected} 
+                        // setSelected={setSelected}
+                      />
                     </Typography>
                   </td>
                   <td className={classes}>
@@ -178,6 +195,10 @@ const EditDetailsList= (props) => {
                     >
                       {/* Dropdown */}
                       {course_group}
+                      <Dropdown dataType='GROUP'
+                        // selected={selected} 
+                        // setSelected={setSelected}
+                      />
                     </Typography>
                   </td>
                   <td className={classes}>
@@ -188,6 +209,10 @@ const EditDetailsList= (props) => {
                     >
                       {/* Dropdown True or False */}
                       {is_core ? 'yes' : 'no'}
+                      <Dropdown dataType='BOOL'
+                        // selected={selected} 
+                        // setSelected={setSelected}
+                      />
                     </Typography>
                   </td>
                   <td className={classes}>
@@ -197,6 +222,10 @@ const EditDetailsList= (props) => {
                       className="font-normal"
                     >
                       {/* Dropdown (Course Code list) */}
+                      <Dropdown dataType='GROUP'
+                        // selected={selected} 
+                        // setSelected={setSelected}
+                      />
                       {prerequisites}
                     </Typography>
                   </td>

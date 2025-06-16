@@ -7,7 +7,7 @@ import EditDetailsList from "../components/EditListDetails";
 import '../App.css'
 
 
-const TABLE_HEAD = ["Semester No.", "Max SCU", ""];
+const TABLE_HEAD = ["Semester No.", "Max SCU"];
 
 export function SemesterList() {
   const [data, setData] = useState([]);
@@ -112,7 +112,7 @@ export function SemesterList() {
                         {max_scu}
                       </Typography>
                     </td>
-                    <td className={`${classes}`} onClick={() => setEditPopup(true)}>
+                    {/* <td className={`${classes}`} onClick={() => setEditPopup(true)}>
                       <Typography 
                         as = "a"
                         variant="small" 
@@ -121,7 +121,7 @@ export function SemesterList() {
                       >
                         <button onClick={() => handleClick(semester_no)}>Edit</button>
                       </Typography>
-                    </td>
+                    </td> */}
                   </tr>
                 );
               })}
@@ -133,9 +133,9 @@ export function SemesterList() {
         <DetailsCourseList idData={dataID}/>
       </Popup> 
 
-      <Popup trigger={editPopup} setTrigger={setEditPopup}>
+      {/* <Popup trigger={editPopup} setTrigger={setEditPopup}>
         <EditDetailsList idData={dataID}/>
-      </Popup>
+      </Popup> */}
     </div>
   );
 }
