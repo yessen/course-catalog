@@ -12,9 +12,29 @@ function Dropdown(
 
     const [selection, setSelection] = useState("Choose One")
     const [isActive, setIsActive] = useState(false);
-    
-    var options = ["dummy"]
+    const [courses, setCourses] = useState({
+        id: "",
+        course_code: "",
+        course_name: "",
+        scu: "",
+        passing_grade: "",
+        course_group: "",
+        is_core: "",
+        prerequisites: ""
+    })
 
+    const [semesterCourses, setSemesterCourses] = useState({
+        id: "",
+        semester_id: "",
+        course_id: ""
+    })
+    // const streamingList = JSON.parse(
+    // localStorage.getItem("streamingList"))
+
+    const groupList = ["Placeholder"]
+
+    var options = ["Choose One"]
+    
     if (data_type == "SEMESTER"){
         options = [1,2,3,4,5,6,7,8]
     }
@@ -25,10 +45,10 @@ function Dropdown(
         options = ['A','B','C','D','E','N/A']
     }
     if (data_type == "BOOL"){
-        options = ["True", "False"]
+        options = ["Yes", "No"]
     }
     if (data_type == "GROUP"){
-        options = ["Placeholder"]
+        options = groupList
     }
     
     // const options = ["React","Vite", "Something","Vite", "Something","Vite", "Something","Vite", "Something","Vite", "Something","Vite", "Something"]
