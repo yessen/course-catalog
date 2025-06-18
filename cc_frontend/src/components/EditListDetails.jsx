@@ -103,7 +103,8 @@ const EditDetailsList= (props) => {
   
   // Completing the SAVE button fills you with determinaion.
   const handleClick = () => {
-    console.log(editCourseData)
+    // console.log(editCourseData)
+    // console.log(editCourSem)
     const token = localStorage.getItem("token");
     const headers = { Authorization: `Token ${token}` };
     Promise.all([
