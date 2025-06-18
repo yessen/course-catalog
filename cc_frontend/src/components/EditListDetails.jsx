@@ -6,15 +6,11 @@ import
     Input,
     Select
   } from "@material-tailwind/react";
+import { useParams } from 'react-router-dom'
 import axios from "axios";
 import React, {useEffect, useState } from 'react';
 
 const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites", "", ""];
-
-const PASSING_GRADE = ['A','B','C','D','E','N/A']
-const SEMESTER_NUM = [1,2,3,4,5,6,7,8]
-const SCU = [1,2,3,4,5,6,7,8,9,10]
-
 const DATA = 'https://course-catalog-backend.vercel.app/api/'
 
 const EditDetailsList= (props) => {
@@ -22,7 +18,122 @@ const EditDetailsList= (props) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  // console.log(props)
+  const [editCourseData, setEditCourseData] = useState({
+    course_code: props.idData[0].course_code,
+    course_name: props.idData[0].course_name,
+    scu: props.idData[0].scu,
+    passing_grade: props.idData[0].passing_grade,
+    course_group: props.idData[0].course_group,
+    is_core: props.idData[0].is_core,
+    prerequisites: props.idData[0].prerequisites
+  })
+  const [editCourSem, setEditCourSem] = useState({
+    semester_id: props.idData[0].semester_id,
+    course_id: props.idData[0].id
+  })
+
 // If I put the var detailsData here then two is inputted. (might be the key to solve the double input bug) 
+  const optiSemester = [1,2,3,4,5,6,7,8]
+  const optiSCU = [1,2,3,4,5,6,7,8,9,10]
+  const optiGrade = ['A','B','C','D','E','N/A']
+  const optiBool = ["Yes", "No"]
+  const groupList = ["placeholder"]
+  const optiGroup = groupList
+  const optiPre = groupList
+  
+
+  // Save all the variables here.
+  const changeCourseCode = (event) => {
+    const courseCode = event.target.value
+    setEditCourseData({...editCourseData,
+      course_code: courseCode
+    });
+  };
+  const handleSelSemseter = (selSemest) => {
+    const semesterCode = selSemest
+    setEditCourSem({...editCourSem,
+      semester_id: semesterCode
+    });
+  }
+  const changeCourseName = (event) => {
+    const courseName = event.target.value
+    setEditCourseData({...editCourseData,
+      course_name: courseName
+    });
+  };
+  const handleSCU = (selSCU) => {
+    const scuCode = selSCU
+    setEditCourseData({...editCourseData,
+      scu: scuCode
+    });
+  };
+  const handleGrade = (selGrade) => {
+    const gradeCode = selGrade
+    setEditCourseData({...editCourseData,
+      passing_grade: gradeCode
+    });
+  };
+  const handleBool = (selBool) => {
+    console.log(selBool)
+    var bool = selBool
+    if (selBool == 'Yes'){
+      bool = true
+    } else if (selBool == 'No'){
+      bool = false
+    }
+    
+    setEditCourseData({...editCourseData,
+      is_core: bool
+    });
+  };
+  const handleGroup = (selGroup) => {
+    const groupCode = selGroup;
+    setEditCourseData({...editCourseData,
+      course_group: groupCode
+    });
+  };
+  const handlePre = (selPre) => {
+    const prereCode = selPre;
+    setEditCourseData({...editCourseData,
+      prerequisites: prereCode
+    });
+  };
+  
+  
+  // Completing the SAVE button fills you with determinaion.
+  const handleClick = () => {
+    console.log(editCourseData)
+    const token = localStorage.getItem("token");
+    const headers = { Authorization: `Token ${token}` };
+    Promise.all([
+      axios.post(`${DATA}courses/`,
+        // JSON.stringify(editCourseData), 
+        editCourseData,
+        { headers:headers }),
+      axios.post(`${DATA}semester-courses/`, 
+        editCourSem,
+        { headers:headers }
+      )
+    ]) 
+    .then(([coursePOST]) => {
+      console.log(coursePOST)
+    })
+    .catch(err => {
+      console.error("AxiosError:", err)
+      if (err.response && err.response.status === 401){
+        setError("Unauthorized. Please log in again.");
+      } else{
+        setError("Failed to fetch course data.")          
+      }
+    }) 
+
+  //  console.log(editCourseData);
+  //  console.log(editCourSem)
+  };
+  
+  
+    
 
   useEffect(()=> {
     const token = localStorage.getItem("token");
@@ -131,7 +242,7 @@ const EditDetailsList= (props) => {
                     >
                       {/* Free Text */}
                       {course_code}
-                      <Input/>
+                      <Input onChange={changeCourseCode}/>
                     </Typography>
                   </td>
                   <td className={classes}>
@@ -142,10 +253,11 @@ const EditDetailsList= (props) => {
                     >
                       {/* Integer Dropdown 1-8 */}
                       {semester_no}
-                      <Dropdown dataType='SEMESTER'
+                      {/* <Dropdown dataType='SEMESTER'
                         // selected={selected} 
                         // setSelected={setSelected}
-                      />
+                      /> */}
+                      <Dropdown options={optiSemester} onSelect={handleSelSemseter}/>
                     </Typography>
                   </td>
                   <td className={classes}>
@@ -156,7 +268,7 @@ const EditDetailsList= (props) => {
                     >
                       {/* Free Text */}
                       {course_name}
-                      <Input/>
+                      <Input onChange={changeCourseName}/>
                     </Typography>
                   </td>
                   <td className={classes}>
@@ -167,10 +279,7 @@ const EditDetailsList= (props) => {
                     >
                       {/* Integer Dropdown 1-10 */}
                       {scu}
-                      <Dropdown dataType='SCU'
-                        // selected={selected} 
-                        // setSelected={setSelected}
-                      />
+                      <Dropdown options={optiSCU} onSelect={handleSCU}/>
                     </Typography>
                   </td>
                   <td className={classes}>
@@ -181,10 +290,7 @@ const EditDetailsList= (props) => {
                     >
                       {/* Dropdown A-E */}
                       {passing_grade}
-                      <Dropdown dataType='GRADE'
-                        // selected={selected} 
-                        // setSelected={setSelected}
-                      />
+                      <Dropdown options={optiGrade} onSelect={handleGrade}/>
                     </Typography>
                   </td>
                   <td className={classes}>
@@ -195,10 +301,7 @@ const EditDetailsList= (props) => {
                     >
                       {/* Dropdown */}
                       {course_group}
-                      <Dropdown dataType='GROUP'
-                        // selected={selected} 
-                        // setSelected={setSelected}
-                      />
+                      <Dropdown options={optiGroup} onSelect={handleGroup}/>
                     </Typography>
                   </td>
                   <td className={classes}>
@@ -208,11 +311,8 @@ const EditDetailsList= (props) => {
                       className="font-normal"
                     >
                       {/* Dropdown True or False */}
-                      {is_core ? 'yes' : 'no'}
-                      <Dropdown dataType='BOOL'
-                        // selected={selected} 
-                        // setSelected={setSelected}
-                      />
+                      {is_core ? 'Yes' : 'No'}
+                      <Dropdown options={optiBool} onSelect={handleBool}/>
                     </Typography>
                   </td>
                   <td className={classes}>
@@ -222,10 +322,7 @@ const EditDetailsList= (props) => {
                       className="font-normal"
                     >
                       {/* Dropdown (Course Code list) */}
-                      <Dropdown dataType='GROUP'
-                        // selected={selected} 
-                        // setSelected={setSelected}
-                      />
+                      <Dropdown options={optiPre} onSelect={handlePre}/>
                       {prerequisites}
                     </Typography>
                   </td>
@@ -235,7 +332,7 @@ const EditDetailsList= (props) => {
                       color="blue"
                       className="font-normal"
                     >
-                      <button>Save</button>
+                      <button onClick={handleClick}>Save</button>
                     </Typography>
                   </td>
                   <td className={classes}>

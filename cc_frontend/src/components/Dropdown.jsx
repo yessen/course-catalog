@@ -1,4 +1,5 @@
 import {
+    useEffect,
     useState,
     React
 } from "react"
@@ -8,49 +9,23 @@ function Dropdown(
     props
     // {selected, setSelected}
 ) {
-    const data_type = props.dataType 
-
+    const {options, onSelect} = props;
+    // console.log(props)
+    // const data_type = props.dataType 
+    // const {id} = useParams()
     const [selection, setSelection] = useState("Choose One")
     const [isActive, setIsActive] = useState(false);
-    const [courses, setCourses] = useState({
-        id: "",
-        course_code: "",
-        course_name: "",
-        scu: "",
-        passing_grade: "",
-        course_group: "",
-        is_core: "",
-        prerequisites: ""
-    })
 
-    const [semesterCourses, setSemesterCourses] = useState({
-        id: "",
-        semester_id: "",
-        course_id: ""
-    })
-    // const streamingList = JSON.parse(
-    // localStorage.getItem("streamingList"))
-
-    const groupList = ["Placeholder"]
-
-    var options = ["Choose One"]
+    // const groupList = ["Placeholder"]
     
-    if (data_type == "SEMESTER"){
-        options = [1,2,3,4,5,6,7,8]
+    const handleOptionClick = (option) => {
+        setSelection(option)
+        // console.log(props.onSelect)
+        onSelect(option);
+        setIsActive(false);
     }
-    if (data_type == "SCU"){
-        options = [1,2,3,4,5,6,7,8,9,10]
-    }
-    if (data_type == "GRADE"){
-        options = ['A','B','C','D','E','N/A']
-    }
-    if (data_type == "BOOL"){
-        options = ["Yes", "No"]
-    }
-    if (data_type == "GROUP"){
-        options = groupList
-    }
-    
+
+    //const options = props.options
     // const options = ["React","Vite", "Something","Vite", "Something","Vite", "Something","Vite", "Something","Vite", "Something","Vite", "Something"]
     
     return(
@@ -65,10 +40,11 @@ function Dropdown(
                 (<div className="dropdown-content">
                     {options.map((option) => (
                         <div 
-                            onClick={(e) => {
+                            onClick={() => {
                                 // setSelected(option);
-                                setSelection(option)
-                                setIsActive(false);
+                                // setSelection(option)
+                                handleOptionClick(option)
+                                // setIsActive(false);
                             }} 
                             className="dropdown-item"
                         >

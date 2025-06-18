@@ -47,13 +47,15 @@ export function Streaming() {
 
           courses.forEach(data => {
             const courseStream = semesterCourses.find((semesterCourses) => semesterCourses.course_id == data.id);
-            const semesterStream = semesters.find((semesters) => semesters.id == courseStream.semester_id);
-            data.semester_id = semesterStream.id
-            data.semester_no = semesterStream.semester_no
-            streamingData.push(data)       
+            if(courseStream != undefined){
+              const semesterStream = semesters.find((semesters) => semesters.id == courseStream.semester_id);
+              data.semester_id = semesterStream.id
+              data.semester_no = semesterStream.semester_no
+              streamingData.push(data)
+            }    
           })         
-          localStorage.setItem("streamingList", JSON.stringify(streamingData));
-          setData(courseStream);
+          // localStorage.setItem("streamingList", JSON.stringify(streamingData));
+          // setData(courseStream);
         })
         .catch(err => {
           console.error("AxiosError:", err)

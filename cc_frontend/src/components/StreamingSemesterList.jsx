@@ -104,16 +104,19 @@ const StreamingSemesterList= (props) => {
           
           //new corse storage after combining relevent data
           var streamingData = [];
-
+          // console.log(semesters)
           courses.forEach(data => {
             const courseStream = semesterCourses.find((semesterCourses) => semesterCourses.course_id == data.id);
+            // console.log(courseStream)
+            if(courseStream != undefined){
             const semesterStream = semesters.find((semesters) => semesters.id == courseStream.semester_id);
             data.semester_id = semesterStream.id
             data.semester_no = semesterStream.semester_no
-            streamingData.push(data)
+            streamingData.push(data)}
           })
+          // console.log(streamingData)
           localStorage.setItem("streamingList", JSON.stringify(streamingData));
-          setData(courseStream);
+          setData(streamingData);
         })
         .catch(err => {
           console.error("AxiosError:", err)
