@@ -1,167 +1,88 @@
 import '../App.css'
 import { Card, Typography } from "@material-tailwind/react";
 import axios from "axios";
-import React, {useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+const TABLE_HEAD = ["id", "Course Code", "Semester", "Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites"];
+const DATA = 'https://course-catalog-backend.vercel.app/api/';
 
-const TABLE_HEAD = ["id", "Course Code","Semester","Course Name", "SCU", "Passing Grade", "Course Group", "Is Core?", "Prerequisites"];
-
-const DATA = 'https://course-catalog-backend.vercel.app/api/'
-
-export function Streaming() {
-  // const TABLE_ROWS = COURSE_DATA;
-  const [data, setData] = useState([]);
+export default function Streaming() {
+  const [data, setData] = useState({ courses: [], semesterCourses: [] });
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(()=> {
+  useEffect(() => {
     const token = localStorage.getItem("token");
 
-    let endpoints = [
-      `${DATA}courses/`, 
-      `${DATA}semester-courses/`
-    ]
-    
     if (!token) {
       setError("You need to log in first.");
+      setLoading(false);
       return;
     }
 
-    axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+    const headers = { Authorization: `Token ${token}` };
 
-    // axios.get(
-    //   `${DATA}courses/`,
-    //   {headers: {
-    //     'Authorization': `token ${token}`
-    //   }}      
-    // )
-      .then(res => {setData(res.data)})
+    Promise.all([
+      axios.get(`${DATA}courses/`, { headers }),
+      axios.get(`${DATA}semester-courses/`, { headers })
+    ])
+      .then(([coursesRes, semestersRes]) => {
+        setData({
+          courses: coursesRes.data,
+          semesterCourses: semestersRes.data,
+        });
+      })
       .catch(err => {
-        console.error("AxiosError:", err)
-        if (err.response && err.response.status === 401){
+        console.error("AxiosError:", err);
+        if (err.response && err.response.status === 403) {
+          setError("Forbidden. Please check your access permissions.");
+        } else if (err.response && err.response.status === 401) {
           setError("Unauthorized. Please log in again.");
-        } else{
-          setError("Failed to fetch course data.")
+        } else {
+          setError("Failed to fetch course data.");
         }
       })
-      
-      
-  }, [])
-  
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (error) {
+    return <div className="text-red-500 font-bold">{error}</div>;
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <Card className="h-full w-full overflow-scroll">
-      
+    <Card className="h-full w-full overflow-scroll mt-10">
       <table className="w-full min-w-max table-auto text-left">
         <thead>
           <tr>
             {TABLE_HEAD.map((head) => (
-              <th
-                key={head}
-                className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-              >
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="font-normal leading-none opacity-70"
-                >
+              <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                <Typography variant="small" color="blue-gray" className="font-normal leading-none opacity-70">
                   {head}
                 </Typography>
               </th>
             ))}
           </tr>
         </thead>
-        <tbody>  
-          {data.map(({ id, course_code, semester_id, course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => {
-            const isLast = index === data.length - 1;
-            const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
-            return (
-              <tr key={id}>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {id}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {course_code}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {semester_id}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {course_name}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {scu}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {passing_grade}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {course_group}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {is_core ? 'yes' : 'no'}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal"
-                  >
-                    {prerequisites}
-                  </Typography>
-                </td>
-              </tr>
-            );
-          })}
+        <tbody>
+          {data.courses.map(({ id, course_code, semester, course_name, scu, passing_grade, course_group, is_core, prerequisites }, index) => (
+            <tr key={id} className="even:bg-blue-gray-50/50">
+              <td className="p-4">{id}</td>
+              <td className="p-4">{course_code}</td>
+              <td className="p-4">{semester}</td>
+              <td className="p-4">{course_name}</td>
+              <td className="p-4">{scu}</td>
+              <td className="p-4">{passing_grade}</td>
+              <td className="p-4">{course_group}</td>
+              <td className="p-4">{is_core ? "Yes" : "No"}</td>
+              <td className="p-4">{Array.isArray(prerequisites) ? prerequisites.join(", ") : prerequisites || "-"}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </Card>
   );
 }
-export default Streaming

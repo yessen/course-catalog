@@ -9,6 +9,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import ErrorBoundary from "./components/ErrorBoundary"
 import PrivateRoute from "./components/PrivateRoute";
 
+
 function App() {
   return (
     <BrowserRouter>
