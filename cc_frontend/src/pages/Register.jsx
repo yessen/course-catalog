@@ -1,10 +1,8 @@
 import React, { useState, useContext } from "react";
+import '../App.css'
 import AuthContext from "../contexts/AuthContext";
 
-
-
-
-const Login = () => {
+const Register = () => {
     const { setUser } = useContext(AuthContext);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -26,7 +24,6 @@ const Login = () => {
                 localStorage.setItem("token", data.token);
                 setUser({ username, token: data.token });
                 alert("Login successful!");
-                document.location.href="/"
             } else {
                 setError(data.error || "Invalid credentials");
             }
@@ -39,7 +36,7 @@ const Login = () => {
     return (
         <div style={styles.container}>
             <div style={styles.card}>
-                <h2 style={styles.title}>Login</h2>
+                <h2 style={styles.title}>Register</h2>
                 {error && <p style={styles.error}>{error}</p>}
                 <form onSubmit={handleSubmit} style={styles.form}>
                     <input
@@ -56,7 +53,14 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         style={styles.input}
                     />
-                    <button type="submit" style={styles.button}>Login</button>
+                    <input
+                        type="password"
+                        placeholder="Repeat Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        style={styles.input}
+                    />
+                    <button type="submit" style={styles.button}>Register</button>
                 </form>
             </div>
         </div>
@@ -111,4 +115,4 @@ const styles = {
     },
 };
 
-export default Login;
+export default Register;

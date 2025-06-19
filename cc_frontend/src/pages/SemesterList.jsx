@@ -1,40 +1,68 @@
-import '../App.css'
 import { Card, Typography } from "@material-tailwind/react";
-import { SEMESTER_DATA } from '../components/SemesterData';
 import axios from "axios";
 import React, {useEffect, useState } from 'react';
+import Popup from '../components/Popup'
+import DetailsCourseList from '../components/DetailsCourseList';
+import EditDetailsList from "../components/EditListDetails";
+import '../App.css'
 
 
-const TABLE_HEAD = ["Semester No.", "Max SCU"];
- 
+const TABLE_HEAD = ["Semester No.", "Max SCU", ""];
+
 export function SemesterList() {
-  // const TABLE_ROWS = SEMESTER_DATA;
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-    
+  const [loading, setLoading] = useState(true);
+  const [buttonPopup, setButtonPopup] = useState(false)
+  const [editPopup, setEditPopup] = useState(false)
+  const [dataID, setDataID] = useState([]);
+ 
+  const handleClick = (semester_no) => {
+    const streamingList = JSON.parse(localStorage.getItem("streamingList"))
+    if(streamingList){
+      const semesterInfo = streamingList.filter((s) => s.semester_no == semester_no);
+      setDataID(semesterInfo)
+      // console.log(semesterInfo)
+    }
+  }  
+
   useEffect(()=> {
     const token = localStorage.getItem("token");
-
+    const semesterList = localStorage.getItem("semesterList")
+    
     if (!token) {
       setError("You need to log in first.");
       return;
     }
 
-    axios.get('https://course-catalog-backend.vercel.app/api/semesters/',
-      {headers: {
-        'Authorization': `token ${token}`
-      }}
-    )
-      .then(res => {setData(res.data)})
-      .catch(err => {
-        console.error("AxiosError:", err)
-        if (err.response && err.response.status === 401){
-          setError("Unauthorized. Please log in again.");
-        } else{
-          setError("Failed to fetch course data.")
-        }
+    if (semesterList){
+      const semesterData = JSON.parse(semesterList);
+      setData(semesterData);
+    } else {
+      axios.get('https://course-catalog-backend.vercel.app/api/semesters/',
+        {headers: {
+          'Authorization': `token ${token}`
+        }}
+      )
+        .then(res => {
+          setData(res.data)
+          localStorage.setItem("semesterList", JSON.stringify(res.data));
+        })
+        .catch(err => {
+          console.error("AxiosError:", err)
+          if (err.response && err.response.status === 401){
+            setError("Unauthorized. Please log in again.");
+          } else{
+            setError("Failed to fetch course data.")
+          }
       })
+    }
+    setLoading(false);
   }, [])
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className='row'>
       <div className='column'>
@@ -56,30 +84,42 @@ export function SemesterList() {
               </tr>
             </thead>
             <tbody>
-              {data.map(({ semester_no, max_scu }, index) => {
+              {data.map(({ id, course_code, course_name, scu, passing_grade, course_group, is_core, prerequisites, semester_no, max_scu }, index) => {
                 const isLast = index === data.length - 1;
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
     
                 return (
-                  <tr key={semester_no}>
-                    <td className={classes}>
+                  <tr key={id} className="even:bg-blue-50/10 odd:bg-slate-950/10">
+                    <td className={`${classes} table-cell`} onClick={() => setButtonPopup(true)}>
                       <Typography 
                         as = "a"
                         variant="small" 
-                        color="blue-gray" 
+                        color="blue" 
                         className="font-normal"
                       >
-                        {semester_no}
+                        <div onClick={() => handleClick(semester_no)} >
+                          {semester_no}
+                        </div>  
                       </Typography>
                     </td>
-                    <td className={`${classes} bg-blue-gray-50/50`}>
+                    <td className={`${classes}`}>
                       <Typography 
                         as = "a"
                         variant="small" 
-                        color="blue-gray" 
+                        color="blue" 
                         className="font-normal"
                       >
                         {max_scu}
+                      </Typography>
+                    </td>
+                    <td className={`${classes}`} onClick={() => setEditPopup(true)}>
+                      <Typography 
+                        as = "a"
+                        variant="small" 
+                        color="blue" 
+                        className="font-normal"
+                      >
+                        <button onClick={() => handleClick(semester_no)}>Edit</button>
                       </Typography>
                     </td>
                   </tr>
@@ -89,9 +129,14 @@ export function SemesterList() {
           </table>
         </Card>
       </div>
+      <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+        <DetailsCourseList idData={dataID}/>
+      </Popup> 
 
+      <Popup trigger={editPopup} setTrigger={setEditPopup}>
+        <EditDetailsList idData={dataID}/>
+      </Popup>
     </div>
-    
   );
 }
 

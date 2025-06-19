@@ -1,11 +1,56 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+  IconButton,
+  Typography,
+  Collapse,
+  Navbar,
+  Card,
+  List,
+  Avatar,
+  Menu,
+  Tooltip,
+  Accordion,
+} from "@material-tailwind/react";
 
-const Navbar = () => {
+// import { DefaultSidebar } from "./DefaultSideBar";
+
+// function CourseMenu(){
+
+// }
+
+
+const StickyNavbar = () => {
+    // const [buttonPopup, setButtonPopup] = useState(false)
+
+    var log_token = "Log In"
+    const token = localStorage.getItem("token");
+    if (token) {
+        log_token = "Log Out"
+    }
+    // const handleClick = (id) => {
+    //     var courseDetails = [];
+    //     const streamingList = JSON.parse(localStorage.getItem("streamingList"))
+    //     if (streamingList){ 
+    //     const streamInfo = streamingList.find((s) => s.id == id);
+    //     courseDetails.push(streamInfo)
+    //     setDataID(courseDetails)
+    //     // console.log(streamInfo)
+    //     }
+    // }
+
+    const Logout = () => {
+        if(token){
+            localStorage.clear()
+            document.location.href="/"
+        }
+    }
+
     return (
         <nav style={styles.navbar}>
             <div style={styles.logo}>
-                <Link to="/semesterlist">Course Catalogue</Link>
+                <Link to="/">Course Catalogue</Link>
+                {/* <Accordion/> */}
             </div>
             <div style={styles.navLinks}>
                 <Link to="/semesterlist" style={styles.navLink}>Semester List</Link>
@@ -13,10 +58,11 @@ const Navbar = () => {
                 <Link to="/streaming" style={styles.navLink}>Streaming</Link>
             </div>
             <div style={styles.authButtons}>
-                <Link to="/login" style={styles.loginButton}>Log in</Link>
+                <Link to="/login" style={styles.loginButton} onClick={Logout}>{log_token}</Link>
                 <Link to="/register" style={styles.signupButton}>Sign up</Link>
             </div>
         </nav>
+        
     );
 };
 
@@ -74,4 +120,4 @@ const styles = {
     },
 };
 
-export default Navbar;
+export default StickyNavbar;

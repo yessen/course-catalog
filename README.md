@@ -22,3 +22,9 @@ Step 3: cd cc_frontend
 Step 4: npm i
 
 Step 5: npm i react-router-dom
+
+Step 6: npm i @tailwindcsss/vite
+
+Step 7: npm i @material-tailwind/react
+
+Step 8: npm i @heroicons/react

@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
 // import IMAGES from "../Images/Images";
-import Navbar from "../components/Navbar";
+import StickyNavbar from "../components/StickyNavbar";
 
 const Layout = () => {
   return (
     <div>
-      <Navbar /> {/* Include the Navbar */}
+      <StickyNavbar /> {/* Include the Navbar */}
       <Outlet />
     </div>
   );
